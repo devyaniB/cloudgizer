@@ -1,0 +1,57 @@
+#!/bin/bash
+# Copyright (c) 2017 DaSoftver LLC.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
+#setup mariadb
+
+export CLDLIB="/usr/local/lib/cld"
+
+#check error in each step, make sure process continues with success
+function check_error ()
+{
+	OUT=$1
+	PLACE=$2
+	if [ $OUT -ne 0 ]; then
+		echo "Problem found (${PLACE}), stopping"
+		exit $OUT
+	fi
+}
+
+#install mariadb. 
+yum -y install mariadb mariadb-server mariadb-devel
+check_error $? "install MariaDB"
+systemctl start mariadb
+systemctl enable mariadb
+mysql_secure_installation
+check_error $? "secure MariaDB"
+
+#remove any previous max_connections (through the end of file) settings we may have set
+sed -i.bak '/[mysqld]/{N;/max_connections=/d}' /etc/my.cnf
+check_error $? "Removing max_connections from my.cnf"
+sed -i.bak '/[mysqld]/{N;/connect_timeout=/d}' /etc/my.cnf
+check_error $? "Removing connect_timeout from my.cnf"
+sed -i.bak '/[mysqld]/{N;/wait_timeout=/d}' /etc/my.cnf
+check_error $? "Removing wait_timeout from my.cnf"
+#make sure mariadb has enough connections and a connection won't time out since Cloudgizer reuses it
+echo "[mysqld]" >> /etc/my.cnf
+check_error $? "could not set mysqld section"
+echo "connect_timeout=60" >> /etc/my.cnf
+check_error $? "could not set max_connections"
+echo "max_connections=500" >> /etc/my.cnf
+check_error $? "could not set max_connections"
+echo "wait_timeout=31535000" >> /etc/my.cnf
+check_error $? "could not set wait_timeout"
+systemctl restart mariadb
+
+exit 0

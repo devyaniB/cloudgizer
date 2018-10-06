@@ -1,0 +1,70 @@
+#!/bin/bash
+# Copyright 2017 DaSoftver LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
+#makes a core deployment file for Cloudgizer application
+
+#check error in each step, make sure process continues with success
+function check_error ()
+{
+    OUT=$1
+    PLACE=$2
+    if [ $OUT -ne 0 ]; then
+        echo "Problem found (${PLACE}), stopping"
+        exit $OUT
+    fi
+}
+
+
+#make sure passwords are not in deployment file, so the customer doesn't see dev password for db root
+#password is ANY variable that ends with PWD
+sed -i  "s/PWD[ ]*=.*/PWD=\"\"/g" ./appinfo
+check_error $? "Cannot reset passwords"
+source ./appinfo
+
+#setup the name of application in app.c - MUST
+#be done before compiling! Also setup module name to match changes to httpd.conf
+#This is done ONLY here, and NOT in cldgoapp
+sed -i "s#^[ ]*static[ ]*char[ ]*\*myname[ ]*=.*;#    static char *myname=\"${CLD_APP_NAME}\";#g" mod.c
+sed -i "s#^[ ]*module[ ]*AP_MODULE_DECLARE_DATA[ ]*.*#module AP_MODULE_DECLARE_DATA cld_${CLD_APP_NAME}_module#g" mod.c
+sed -i "s#^[ ]*char[ ]*\*cld_handler_name .*#char *cld_handler_name __attribute__ ((visibility (\"default\"))) = \"${CLD_APP_NAME}\";#g" app.c
+#make the application
+source /usr/bin/cldbuild
+check_error $? "Cannot compile product"
+
+#remove temporary directories
+rm -rf clddev
+mkdir clddev
+mkdir clddev/deploy
+check_error $? "Cannot create deploy directory"
+
+
+#list of files to include in deployment
+export EXELISTSRC="cldapp.o a_cldapp.o cldapp.a mod.o app.o "
+
+#copy to a directory we're going to gzip
+cp -avrL $CLD_REQUIRED_FILES $EXELISTSRC $CLD_APP_FILES `pwd`/clddev/deploy
+check_error $? "Cannot copy deploy files"
+
+#tar and gzip so that all is in deploy once unpacked
+tar -hcf - -C `pwd`/clddev deploy  | gzip -9 > ${CLD_APP_NAME}.tar.gz
+check_error $? "Cannot create deployment"
+
+#check it's okay and remove temporary directory
+ls -asl ${CLD_APP_NAME}.tar.gz
+rm -rf clddev
+
+
+exit 0
+

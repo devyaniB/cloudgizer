@@ -1,0 +1,216 @@
+#!/bin/bash
+# Copyright 2017 DaSoftver LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
+#makes a core deployment file for Cloudgizer application. 
+#Usage:
+#To deploy initial installation:
+#cldgoapp create
+#To deploy update:
+#cldgoapp update
+
+
+#First check if Cloudgizer is installed
+echo "Checking if Cloudgizer is installed..."
+which cld
+if [ "$?" != "0" ]; then
+    echo "Please install Cloudgizer first (go to http://cloudgizer.com)"
+    exit 1
+fi
+
+
+echo "Get appinfo information"
+#set the application name, deployment directory 
+source ./appinfo
+#remember directory of install to later be able to remove passwords from appinfo
+export CLD_APP_INSTALL_DIR=$(pwd)
+#directory where application is - NOTHING must be written into ..
+export CLD_APP_HOME_DIR="${HOME}/${CLD_APP_NAME}"
+
+# make application home
+cd $HOME
+mkdir -p ${CLD_APP_HOME_DIR}
+check_error $? "cannot create application directory"
+# goto application home
+cd ${CLD_APP_HOME_DIR}
+#create necessary directories for Cloudgizer to run
+mkdir -p ${CLD_APP_HOME_DIR}/file
+check_error $? "make file dir"
+mkdir -p ${CLD_APP_HOME_DIR}/trace
+check_error $? "make trace dir"
+mkdir -p ${CLD_APP_HOME_DIR}/tmp
+check_error $? "make tmp dir"
+mkdir -p ${CLD_APP_HOME_DIR}/html
+check_error $? "make html dir"
+
+echo "***"
+echo "Setting up Cloudgizer .db file."
+echo "***"
+
+#create .db file with proper values
+echo "localhost">${CLD_APP_HOME_DIR}/.db
+check_error $? "add content to .db file"
+echo "$CLD_APP_NAME">>${CLD_APP_HOME_DIR}/.db
+check_error $? "add content to .db file"
+echo "$CLD_DB_APP_PWD">>${CLD_APP_HOME_DIR}/.db
+check_error $? "add content to .db file"
+echo "$CLD_APP_NAME">>${CLD_APP_HOME_DIR}/.db
+check_error $? "add content to .db file"
+chmod 600 ${CLD_APP_HOME_DIR}/.db
+check_error $? "set proper privileges for hidden db file"
+
+echo "***"
+echo "Setting up debug file"
+echo "***"
+echo "sleep=-1" > ${CLD_APP_HOME_DIR}/trace/debug
+check_error $? "setup debug file"
+echo "trace=1" >> ${CLD_APP_HOME_DIR}/trace/debug
+check_error $? "setup debug file"
+echo "memorycheck=0" >> ${CLD_APP_HOME_DIR}/trace/debug
+check_error $? "setup debug file"
+echo "lint=0" >> ${CLD_APP_HOME_DIR}/trace/debug
+check_error $? "setup debug file"
+echo "tag=" >> ${CLD_APP_HOME_DIR}/trace/debug
+check_error $? "setup debug file"
+
+if [ "$1" == "create" ]; then
+# since we're about to wipe out the database, export existing one (if it exists)
+    export DBEXPORT_TAG=$(date +%m-%d-%Y-%H-%M-%S)
+    export DBEXPORT_FILE="${CLD_APP_HOME_DIR}/dbexport/daily_dbexport_db-$(hostname)-$DBEXPORT_TAG.sql"
+    echo "Starting dbexport on ${DBEXPORT_TAG}"
+    # Make a dbexport just in case
+    mysqldump -u root -p$CLD_DB_ROOT_PWD --single-transaction --no-create-info --complete-insert --replace --skip-triggers --force --ignore-table=${CLD_APP_NAME}.timezone --ignore-table=${CLD_APP_NAME}.anon_user ${CLD_APP_NAME} > ${DBEXPORT_FILE} 2>&1
+    echo "Current database (if it exists) exported to ${DBEXPORT_FILE}"
+
+# create db objects needed for Cloudgizer, only if this is initial app creation
+    echo "***"
+    echo "Creating database and required objects."
+    echo "***"
+
+# do not check status of dropping user or database as it may fail if it doesn't exist
+    echo "drop user $CLD_APP_NAME@localhost;" | mysql -u root -p$CLD_DB_ROOT_PWD 2>&1 |grep -v "Operation DROP USER failed"
+    echo "drop database $CLD_APP_NAME;" | mysql -u root -p$CLD_DB_ROOT_PWD 2>&1 |grep -v "Can't drop database"
+    rm -rf cld_db1.sql
+    echo "create user $CLD_APP_NAME@localhost;">>cld_db1.sql
+    echo "set password for $CLD_APP_NAME@localhost=password('$CLD_DB_APP_PWD');">>cld_db1.sql
+    echo "create database $CLD_APP_NAME;">>cld_db1.sql
+    echo "use $CLD_APP_NAME">>cld_db1.sql
+    echo "grant select,insert,delete,update on $CLD_APP_NAME.* to $CLD_APP_NAME@localhost;">>cld_db1.sql
+    echo "flush privileges;">>cld_db1.sql
+    echo "drop table if exists cldDocumentIDGenerator;">>cld_db1.sql
+    echo "create table cldDocumentIDGenerator (">>cld_db1.sql
+    echo "   id bigint auto_increment primary key">>cld_db1.sql
+    echo ");">>cld_db1.sql
+    check_error $? "make db root script"
+    mysql -u root -p$CLD_DB_ROOT_PWD <cld_db1.sql
+    check_error $? "execute db root script"
+fi
+
+#prevent cp from asking if we want to overwrite
+unalias rm mv cp >/dev/null  2>/dev/null
+
+echo "***"
+echo "Altering Apache http.config file."
+echo "***"
+#make sure this user is Apache process owner (even though Cloudgizer install sets it up)
+sudo sed -i  "s/^[ \t]*User[ \t]*.*/User ${USER}/g" /etc/httpd/conf/httpd.conf
+check_error $? "subst user name"
+sudo sed -i "/AddHandler cld_handler_${CLD_APP_NAME} /d" /etc/httpd/conf/httpd.conf
+check_error $? "delete addhandler line before adding it to avoid multiples"
+sudo sed -i  "s/^[ \t]*Group[ \t]*.*/Group ${USER}\nAddHandler cld_handler_${CLD_APP_NAME} .${CLD_APP_NAME}/g" /etc/httpd/conf/httpd.conf
+check_error $? "subst group and add handler"
+#prevent accumulation of handlers, apxs will add it when compiled
+sudo sed -i '/[ ]*LoadModule[ ]*cld_module_${CLD_APP_NAME}/d' /etc/httpd/conf/httpd.conf
+check_error $? "delete old handler (prevent accumulation of handlers)"
+#restart apache
+
+
+echo "Create src directory"
+#make src directory for application
+mkdir -p ${CLD_APP_HOME_DIR}/src
+check_error $? "Cannot mkdir src"
+
+cp -f  ${CLD_APP_INSTALL_DIR}/mod.o ${CLD_APP_INSTALL_DIR}/app.o ${CLD_APP_INSTALL_DIR}/cldapp.a ${CLD_APP_INSTALL_DIR}/cldapp.o ${CLD_APP_INSTALL_DIR}/a_cldapp.o ${CLD_APP_HOME_DIR}/src
+
+#copy all the required files
+echo "Copy required files"
+#Must go to install directory since required and app files are file lists
+cd ${CLD_APP_INSTALL_DIR}
+cp -rf $CLD_REQUIRED_FILES $CLD_APP_FILES ${CLD_APP_HOME_DIR}/src
+check_error $? "Cannot copy files"
+
+# Setup and copy config file ONLY if this is application creation. If updating, do NOT touch it
+# as we would use default settings for parameters (and all changes done by create.sh would be gone)
+if [ "$1" == "create" ]; then
+    echo "Construct configuration file"
+    #create config file and put proper values in it
+    sed -i "s#^[ ]*email_address[ ]*=[ ]*.*#email_address=${CLD_EMAIL}#g" ${CLD_APP_INSTALL_DIR}/config
+    check_error $? "Cannot set email address"
+    sed -i "s#^[ ]*web_address[ ]*=[ ]*.*#web_address=${CLD_SERVER}#g" ${CLD_APP_INSTALL_DIR}/config
+    check_error $? "subst server name in cld config file"
+    # Copy config to app home directory BEFORE create/update scripts, because executing any program (cld program)
+    # WILL need config file. If create/update scripts need to change config file, they MUST work directly on it.
+    cp -f ${CLD_APP_INSTALL_DIR}/config ${CLD_APP_HOME_DIR}
+    check_error $? "copy config file to home"
+    chmod 600 ${CLD_APP_HOME_DIR}/config
+    check_error $? "change config permissions"
+fi
+
+#make the application from binaries
+cd ${CLD_APP_HOME_DIR}/src
+echo "Make the application"
+#create bin directory
+mkdir -p ${CLD_APP_HOME_DIR}/bin
+source cldbuild local
+check_error $? "Cannot make product"
+
+
+
+cd ${CLD_APP_INSTALL_DIR}
+#create or update SQL files and execute create.sh (create environment script) or update.sh (update environment script)
+if [ "$1" == "create" ]; then
+    echo "Execute create.sh for application creation"
+    source ./create.sh
+    check_error $? "Cannot execute create.sh"
+else
+    if [ "$1" == "update" ]; then
+        echo "Execute update.sh for application update"
+        source ./update.sh
+        check_error $? "Cannot execute update.sh"
+    else
+        echo "Uknown installation option [$1], use either 'create' or 'update'"
+        exit -1
+    fi
+fi
+
+#restart web server
+echo "Restart web server"
+sudo service httpd restart
+check_error $? "Cannot start web server"
+sudo systemctl enable httpd
+check_error $? "enable httpd"
+
+#set permissions to 700 so that ssh works properly and other reasons
+#no -R here for either chown or chmod as don't want to recurse into directories
+#that potentially may already have many files, which may take a long time to complete
+chmod 700 $HOME
+check_error $? "set proper privileges for all files"
+
+#make sure passwords are not in deployment file anymore
+#password is ANY variable that ends with PWD
+sed -i  "s/PWD[ ]*=.*/PWD=\"\"/g" ./appinfo
+check_error $? "Cannot reset passwords"
+
+exit 0
+

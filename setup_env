@@ -1,0 +1,122 @@
+#!/bin/bash
+# Copyright (c) 2017 DaSoftver LLC.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
+#install Cloudgizer dependencies and setup environment for CLD
+
+#
+#
+#
+# The following are packages needed for Cloudgizer
+# Also setup environment (sudo, selinux).
+#
+#
+
+#check error in each step, make sure process continues with success
+function check_error ()
+{
+	OUT=$1
+	PLACE=$2
+	if [ $OUT -ne 0 ]; then
+		echo "Problem found (${PLACE}), stopping"
+		exit $OUT
+	fi
+}
+
+echo "***"
+echo "Setting SELinux to permissive."
+echo "***"
+#change SELINUX policy to permissive, cover either file
+sed -i.bak '/SELINUX=/d' /etc/sysconfig/selinux
+check_error $? "delete SELINUX enforcement"
+echo "SELINUX=permissive" >> /etc/sysconfig/selinux
+check_error $? "add permissive SELINUX enforcement"
+sed -i.bak '/SELINUX=/d' /etc/selinux/config
+check_error $? "delete SELINUX enforcement to config file"
+echo "SELINUX=permissive" >> /etc/selinux/config
+check_error $? "add permissive SELINUX enforcement to config file"
+#set to permissive so we dont need to reboot
+setenforce 0
+
+#C compiler, a basic necessity 
+yum -y install gcc
+check_error $? "install gcc"
+
+#wget needed to download MariaDB LGPL C package
+yum -y install wget
+check_error $? "install wget"
+
+#cmake needed to compile MariaDB LGPL C connector
+yum -y install cmake
+check_error $? "install cmake"
+
+#library for encryption functions
+yum -y install openssl
+check_error $? "install openssl"
+yum -y install openssl-devel
+check_error $? "install openssl-devel"
+
+
+#install MariaDB LGPL C connector
+wget https://downloads.mariadb.org/interstitial/connector-c-3.0.5/mariadb-connector-c-3.0.5-src.tar.gz?serve -O marialgplclient.tar.gz
+check_error $? "wget LGPL MariaDB C client"
+gunzip -f marialgplclient.tar.gz
+check_error $? "gunzip MariaDB C client"
+tar xvf marialgplclient.tar
+check_error $? "untar MariaDB C client"
+cd mariadb-connector-c-3.0.5-src
+cmake -DBUILD_CONFIG=mysql_release
+check_error $? "cmake MariaDB C client"
+make
+check_error $? "make MariaDB C client"
+make install
+check_error $? "make install MariaDB C client"
+cd ..
+echo /usr/local/lib/mariadb/ > /etc/ld.so.conf.d/vmdev.conf
+ldconfig
+
+#indentation for generated C code
+yum -y install indent  
+check_error $? "instal indent"
+
+#needed for web interface functionality
+yum -y install curl
+check_error $? "instal curl"
+yum -y install libcurl
+check_error $? "instal libcurl"
+yum -y install libcurl-devel
+check_error $? "instal libcurl-devel"
+
+#apache web server
+yum -y install httpd
+check_error $? "instal httpd"
+yum -y install httpd-devel
+check_error $? "instal httpd-devel"
+
+#firewall basics, adjust as needed - this makes sure http is visible
+yum -y install firewalld
+check_error $? "install firewalld"
+systemctl start firewalld
+check_error $? "start firewalld"
+systemctl enable firewalld
+check_error $? "enable firewalld"
+firewall-cmd --set-default-zone=public
+check_error $? "firewalld public zone"
+firewall-cmd --permanent --zone=public --add-service=http
+check_error $? "add http to firewalld"
+firewall-cmd --permanent --zone=public --add-service=https
+check_error $? "add https to firewalld"
+firewall-cmd --reload
+check_error $? "reload firewalld"
+

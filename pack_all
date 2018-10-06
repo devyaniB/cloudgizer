@@ -1,0 +1,52 @@
+#!/bin/bash
+# Copyright (c) 2017 DaSoftver LLC.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
+
+#build the installer for Cloudgizer 
+
+#create binary distribution (install_binary)
+./build_binary
+OUT=$?
+if [ $OUT -ne 0 ]; then
+    echo "Problem found (1), stopping"
+    exit $OUT
+fi
+
+#list of files to include in installation
+export ISRC="setup setup_cld setup_env setup_maria setup_postfix LICENSE NOTICE docs"
+#make a directory for tarring
+rm -rf clddev
+mkdir clddev
+mkdir clddev/cloudgizer
+#copy to a directory we're going to gzip
+cp -avrL $ISRC `pwd`/clddev/cloudgizer
+OUT=$?
+if [ $OUT -ne 0 ]; then
+    echo "Problem found (1), stopping"
+    exit $OUT
+fi
+#tar and gzip so that all is in clddist once unpacked
+tar -hcf - -C `pwd`/clddev .  | gzip -9 > cloudgizer.tar.gz
+OUT=$?
+if [ $OUT -ne 0 ]; then
+    echo "Problem found (3), stopping"
+    exit $OUT
+fi
+
+echo "**"
+echo "** OKAY file cloudgizer.tar.gz"
+echo "**"
+
+exit 0

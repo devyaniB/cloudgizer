@@ -1,0 +1,113 @@
+# Copyright 2017 DaSoftver LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
+# 
+# Cloudgizer 'Hello World' make file 
+#
+
+#
+# Setting of build variables
+# 
+
+# Local variables - not used for install at production
+CLDINCLUDE=/usr/local/include/cld
+CLDLIB=/usr/local/lib/cld
+MARIAINCLUDE=/usr/local/include/mariadb
+MARIALGPLCLIENT=/usr/local/lib/mariadb
+CLDDEBUG=1
+
+# MARIASOCK should be "-mariasock <directory where mariadb socket is>" (or empty if already set)
+MARIASOCK = -mariasock /var/lib/mysql/mysql.sock
+
+# options for cld
+CLD_OPTS = $(MARIASOCK) 
+
+#apache version
+APACHE_VERSION=204
+
+# c/linker flags
+CC=gcc
+ifeq ($(CLDDEBUG), 0)
+OPTIMIZATION=-O2 -g -fPIC 
+else
+OPTIMIZATION=-g -fPIC 
+endif
+
+CFLAGS=-fPIC -Werror -Wall -Wuninitialized -Wmissing-declarations -Wformat -Wno-format-zero-length  -I $(MARIAINCLUDE) -I $(CLDINCLUDE) -fvisibility=hidden
+#the same flags, just with comma for apxs "-Wc," flag
+CFLAGSMOD=-Wc,-std=gnu89 -Wc,-Werror -Wc,-Wall -Wextra -Wc,-Wuninitialized -Wc,-Wmissing-declarations -Wc,-Wformat -Wc,-Wno-format-zero-length
+# run time path is in a fixed directory. You must have MariaDB LGPL client, OpenSSL and CURL installed
+LDFLAGSLOCAL=-Wl,-no-as-needed -L$(MARIALGPLCLIENT) -lmariadb -lcrypto -lrt -lpthread -lcurl 
+LDFLAGSRPATH=-Wl,--rpath=$(CLDLIB) 
+LDFLAGS=$(LDFLAGSLOCAL) $(LDFLAGSRPATH) 
+
+#
+# Rules for building
+# 
+
+# cldapp is command line executable, cldapp.f is apache module
+all: prep cldapp cldapp.f cldapp.a cldapp.o
+
+#build command line program and shared library, then use shared library as an apache module
+local: 
+	$(CC) -o cldapp cldapp.o $(CLDLIB)/libcld.so cldapp.a $(LDFLAGSLOCAL) app.o -Wl,--rpath=$(CLDLIB) 
+	$(CC) -shared -o libcldapp_$(CLD_APP_NAME).so a_cldapp.o cldapp.a $(CLDLIB)/mod_cld.o mod.o app.o $(CLDLIB)/libacld.so $(LDFLAGSLOCAL) 
+	sudo apxs -a -i -n cld_$(CLD_APP_NAME) `pwd`/libcldapp_$(CLD_APP_NAME).so 
+	cp cldapp $(CLD_APP_HOME_DIR)/bin
+
+#clean files. *.cldo is produced by CLD, the result is generated/object files
+clean:
+	rm -f add_index.cldo qa.cldo cldapp.c a_cldapp.c *.o __*.c* cldapp.c a_cldapp.c
+
+prep:
+	rm -f cldapp.c a_cldapp.c && echo "File cldapp does not exist" || echo "Preparing for build..."
+
+
+include sourcelist
+
+
+#the rest if compilation of source files and producing object files and libraries needed for apache,
+#do not change these
+$(SOURCE_FILES):
+	cld $< $(CLD_OPTS) -out   __$(basename $@).c 
+	indent __$(basename $@).c -bli0 -ts4 -nut -i4 -npsl 
+	$(CC) -c __$(basename $@).c  $(CFLAGS) $(OPTIMIZATION) -o $@ -I`pwd` 
+
+cldapp.a: $(SOURCE_FILES)
+	rm -f cldapp.a
+	ar rcs cldapp.a $^ 
+
+app.o: app.c
+	$(CC) -c $^ $(CFLAGS)
+
+cldapp: cldapp.o $(CLDLIB)/libcld.so cldapp.a app.o
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+mod.o: mod.c
+	apxs -D APACHE_VERSION=$(APACHE_VERSION) -c $(CFLAGSMOD) $< -fPIC 
+
+cldapp.f: a_cldapp.o cldapp.a $(CLDLIB)/mod_cld.o mod.o app.o
+	$(CC) -shared -o libcldapp_$(CLD_APP_NAME).so $^ $(CLDLIB)/libacld.so -DAMOD $(LDFLAGS)
+	sudo apxs -a -i -n cld_$(CLD_APP_NAME) `pwd`/libcldapp_$(CLD_APP_NAME).so 
+
+cldapp.o:
+	cld -main -cmd $(CLD_OPTS) -out cldapp.c
+	indent cldapp.c -bli0 -ts4 -nut -i4 -npsl
+	$(CC) -c cldapp.c  $(CFLAGS) $(OPTIMIZATION) -o $@ -I`pwd` 
+
+a_cldapp.o: 
+	cld -main $(CLD_OPTS) -out a_cldapp.c
+	indent a_cldapp.c -bli0 -ts4 -nut -i4 -npsl
+	$(CC) -c a_cldapp.c  $(CFLAGS) $(OPTIMIZATION) -o $@ -I`pwd` 
+

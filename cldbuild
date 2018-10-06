@@ -1,0 +1,28 @@
+#!/bin/bash
+# Copyright 2017 DaSoftver LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
+# make script for Cloudgizer
+
+#set variables for make. You would only change CLD_APP for your application.
+source ./appinfo
+export CLDLIB="/usr/local/lib/cld"
+export CLD_APP_HOME_DIR="${HOME}/${CLD_APP_NAME}"
+
+
+#prevent accumulation of handlers
+sudo sed -i '/[ ]*LoadModule[ ]*cld_module_${CLD_APP_NAME}/d' /etc/httpd/conf/httpd.conf
+check_error $? "Cannot setup LoadModule"
+
+make -f /usr/bin/cldmakefile $1

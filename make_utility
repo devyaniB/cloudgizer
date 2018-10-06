@@ -1,0 +1,74 @@
+#!/bin/bash
+# Copyright (c) 2017 DaSoftver LLC.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
+
+#
+#installation script for Cloudgizer
+#
+
+#CLD files are always installed here, we will create these directories
+export CLDINCLUDE="/usr/local/include/cld/"
+export CLDLIB="/usr/local/lib/cld/"
+
+#create include and lib directories, only owner can write others can read/execute
+sudo mkdir -p $CLDINCLUDE
+sudo chmod 755 $CLDINCLUDE
+sudo mkdir -p $CLDLIB
+sudo chmod 755 $CLDLIB
+sudo rm -f $CLDLIB/lib*.so*
+
+#copy files to include and lib directories
+sudo cp cld.h $CLDINCLUDE
+sudo cp libcld.so $CLDLIB
+sudo cp libacld.so $CLDLIB
+sudo cp cld.a $CLDLIB
+sudo cp mod_cld.o $CLDLIB
+
+#set the same permissions (only owner writes, others read/execute)
+sudo chmod 755 $CLDLIB/*
+sudo chmod 755 $CLDINCLUDE/*
+
+#make cloudgizer
+echo "Building ..."
+make makecld
+OUT=$?
+if [ $OUT -ne 0 ]; then
+    echo "Problem found in make, stopping"
+    exit $OUT
+fi
+
+
+#check if anything wrong i.e if there's unresolved symbols
+ldd ./cld |grep "not found"
+export NF1=`ldd ./cld |grep "not found"`
+
+if [ "$NF1" != "" ]; then
+    echo "Problem in linking: $NF1"
+fi
+
+#copy cld preprocessor so it can be called everywhere, same privileges
+sudo cp cld /usr/bin
+sudo chmod 755 /usr/bin/cld
+sudo cp cldgoapp /usr/bin
+sudo chmod 755 /usr/bin/cldgoapp
+sudo cp cldpackapp /usr/bin
+sudo chmod 755 /usr/bin/cldpackapp
+sudo cp cldmakefile /usr/bin
+sudo chmod 744 /usr/bin/cldmakefile
+sudo cp cldbuild /usr/bin
+sudo chmod 755 /usr/bin/cldbuild
+
+
+

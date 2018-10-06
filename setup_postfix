@@ -1,0 +1,115 @@
+#!/bin/bash
+# Copyright (c) 2017 DaSoftver LLC.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
+#setup sendmail
+
+
+
+#shortcuts
+YUM="yum -y"
+START="systemctl start"
+ENABLE="systemctl enable"
+RESTART="systemctl restart"
+SED="sed"
+
+#check-error function
+function check_error ()
+{
+	OUT=$1
+	PLACE=$2
+	if [ $OUT -ne 0 ]; then
+		echo "Problem found (${PLACE}), stopping"
+		exit $OUT
+	fi
+}
+
+#function to remove a line with $1=... and replace it with $1=$2, in file $3
+function add_line ()
+{
+    $SED -i.bak "/^$1[ \t]*=[ \t]*/d" $3
+    echo "$1=$2" >> $3
+    check_error $? "cannot add line with $1 $2 $3"
+}
+
+#ask for the domain and FQDN for a server - needed for sendmail setup
+echo "Setting up postfix for sendmail."
+echo
+echo "What is the DOMAIN of this server (i.e. mywebserver.com) - do NOT specify the trailing / character."
+read -p 'Web domain:' WEBDOMAIN
+check_error $? "Cannot read domain name"
+echo
+echo "What is the FULLY QUALIFIED NAME of this server (i.e. mysite.mywebserver.com) - do NOT specify the trailing / character."
+read -p 'Web address:' WEBADDRESS
+check_error $? "Cannot read server name"
+
+sysctl kernel.hostname=$WEBADDRESS
+check_error $? "Cannot set server name"
+hostnamectl set-hostname $WEBADDRESS
+check_error $? "Cannot set server name (1)"
+
+
+# Start with clean slate
+$YUM remove postfix
+check_error $? "cannot remove postfix"
+
+# Remove sendmail, use solely postfix and postfix's own sendmail command-line
+$YUM remove sendmail
+check_error $? "cannot remove sendmail"
+
+$YUM install postfix
+check_error $? "cannot install postfix"
+
+$YUM install cyrus-sasl-plain
+check_error $? "cannot install sasl"
+
+#operate on main postfix file
+POSTFIXMAIN="/etc/postfix/main.cf"
+
+#setup address and domain
+add_line "myhostname" "$WEBADDRESS" "$POSTFIXMAIN"
+add_line "mydomain" "$WEBDOMAIN" "$POSTFIXMAIN"
+
+#setup origin of emails
+add_line "myorigin" "\$mydomain" "$POSTFIXMAIN"
+
+#do not accept any email from outside! This is not a mail server. If you need that, you'll need to do it on your own. It's probably better to have a 
+#full blown mail server separately anyway
+add_line "inet_interfaces" "localhost" "$POSTFIXMAIN"
+
+#other settings
+add_line "inet_protocols" "all" "$POSTFIXMAIN"
+add_line "mydestination" "localhost" "$POSTFIXMAIN"
+add_line "mynetworks" "$WEBADDRESS, 127.0.0.0/8" "$POSTFIXMAIN"
+add_line "home_mailbox" "Maildir" "$POSTFIXMAIN"
+
+
+#send outgoing mail with TLS, generate key for this purpose. It doesn't have to be an authority-certificate
+mkdir -p /etc/postfix/ssl
+check_error $? "cannot create ssl directory"
+openssl req -new -x509 -days 365 -nodes -out /etc/postfix/ssl/ca.crt -keyout /etc/postfix/ssl/ca.key -subj "/C=/ST=/L=/O=/CN=${WEBADDRESS}"
+check_error $? "cannot generate ssl ceritificate"
+
+add_line "smtp_tls_security_level" "may" "$POSTFIXMAIN"
+add_line "smtp_tls_loglevel" "1" "$POSTFIXMAIN"
+add_line "smtp_tls_session_cache_database" "btree:/var/lib/postfix/smtp_scache" "$POSTFIXMAIN"
+
+# make sure logging service is okay because postfix can stop working from non-root account if it's not!
+systemctl restart rsyslog.service
+systemctl enable rsyslog.service
+
+# run postfix
+systemctl restart postfix.service
+systemctl enable postfix.service
+

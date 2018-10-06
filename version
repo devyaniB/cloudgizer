@@ -1,0 +1,51 @@
+#!/bin/bash
+# Copyright (c) 2018 DaSoftver LLC.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
+# Mark the code as version, specified as a parameter to this script, plus the comment for tagging:
+# ./version 2.3 "fixed bugs so and so"
+
+
+if [[ "$1" == "" ]]; then
+    echo "Must specify new version."
+    exit 1
+fi
+
+if [[ "$2" == "" ]]; then
+    echo "Must specify comment for new version."
+    exit 1
+fi
+
+export CURR_VERSION=$(grep 'CLD_MAJOR_VERSION' cld.h|awk '{print $3}')
+
+echo "Current version is $CURR_VERSION"
+echo
+
+if [[ "\"$1\"" > "$CURR_VERSION" ]]; then
+    echo "Proceeding with tagging new version to be $1, and changing CLD_MAJOR_VERSION to this as well. Comment used is $2"
+    read -p "Do you want to continue? (y to continue) " TAG_CONT
+    if [ ! "$TAG_CONT" == "y" ]; then
+        echo "Stopping..."
+        exit 0
+    fi
+    sed -i "s/^#define[ ]*CLD_MAJOR_VERSION.*/#define CLD_MAJOR_VERSION \"$1\"/" cld.h
+    git commit -a -m "$2"
+    git push origin master
+    git tag -a $1 -m "new version"
+    git push origin --tags
+else
+    echo "New version must be greater than current version $CURR_VERSION"
+fi
+
+
