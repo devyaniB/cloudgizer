@@ -16,64 +16,25 @@
 #makes gz file that has everything needed to install Cloudgizer
 
 echo "**"
-echo "** Making binary distribution"
+echo "** Installing Cloudgizer "
 echo "**"
-
-#remove temporary directories
-rm -rf clddev
-mkdir clddev
-mkdir clddev/clddist
 
 #clean and make from scratch so there's no mixing with previous build (that's why we clean)
 make clean
-make
+make makecld
 OUT=$?
 if [ $OUT -ne 0 ]; then
     echo "Problem found (0), stopping"
     exit $OUT
 fi
 
-#list of files to include in installation
-export EXELISTSRC="cldgoapp cldpackapp cldbuild cldmakefile libcld.so cld.o libacld.so cld.a cld.h Makefile make_utility mod_cld.o  LICENSE NOTICE "
-
-#copy to a directory we're going to gzip
-cp -avrL $EXELISTSRC `pwd`/clddev/clddist
-OUT=$?
-if [ $OUT -ne 0 ]; then
-    echo "Problem found (1), stopping"
-    exit $OUT
-fi
-
-#tar and gzip so that all is in clddist once unpacked
-tar -hcf - -C `pwd`/clddev .  | gzip -9 > clddist.tar.gz
-OUT=$?
-if [ $OUT -ne 0 ]; then
-    echo "Problem found (3), stopping"
-    exit $OUT
-fi
-
-#check it's okay and remove temporary directory
-ls -asl clddist.tar.gz
-rm -rf clddev
-
-# concatinate unpacker (stub_binary) with gz file created in make_dist
-cat stub_binary clddist.tar.gz >  setup_cld
-
 # test install_binary right now by installing cld
-chmod +x ./setup_cld
-./setup_cld
+./make_utility
 OUT=$?
 if [ $OUT -ne 0 ]; then
     echo "Problem found (4), stopping"
     exit $OUT
 fi
 
-#remove the intermediate artifact
-rm -rf clddist.tar.gz
-rm -rf clddist
-
-# make installer executable, ready to run
-chmod +x setup_cld
-ls -asl setup_cld
 
 

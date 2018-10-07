@@ -42,7 +42,7 @@ sudo chmod 755 $CLDINCLUDE/*
 
 #make cloudgizer
 echo "Building ..."
-make makecld
+make 
 OUT=$?
 if [ $OUT -ne 0 ]; then
     echo "Problem found in make, stopping"

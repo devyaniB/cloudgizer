@@ -24,29 +24,3 @@ if [ $OUT -ne 0 ]; then
     exit $OUT
 fi
 
-#list of files to include in installation
-export ISRC="setup setup_cld setup_env setup_maria setup_postfix LICENSE NOTICE docs"
-#make a directory for tarring
-rm -rf clddev
-mkdir clddev
-mkdir clddev/cloudgizer
-#copy to a directory we're going to gzip
-cp -avrL $ISRC `pwd`/clddev/cloudgizer
-OUT=$?
-if [ $OUT -ne 0 ]; then
-    echo "Problem found (1), stopping"
-    exit $OUT
-fi
-#tar and gzip so that all is in clddist once unpacked
-tar -hcf - -C `pwd`/clddev .  | gzip -9 > cloudgizer.tar.gz
-OUT=$?
-if [ $OUT -ne 0 ]; then
-    echo "Problem found (3), stopping"
-    exit $OUT
-fi
-
-echo "**"
-echo "** OKAY file cloudgizer.tar.gz"
-echo "**"
-
-exit 0
