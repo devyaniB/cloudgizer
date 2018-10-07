@@ -13,10 +13,21 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
+#makes gz file that has everything needed to install Cloudgizer
 
-#
-#installation script for Cloudgizer
-#
+echo "**"
+echo "** Installing Cloudgizer "
+echo "**"
+
+#clean and make from scratch so there's no mixing with previous build (that's why we clean)
+make clean
+make 
+make makecld
+OUT=$?
+if [ $OUT -ne 0 ]; then
+    echo "Problem found (0), stopping"
+    exit $OUT
+fi
 
 #CLD files are always installed here, we will create these directories
 export CLDINCLUDE="/usr/local/include/cld/"
@@ -69,6 +80,15 @@ sudo cp cldmakefile /usr/bin
 sudo chmod 744 /usr/bin/cldmakefile
 sudo cp cldbuild /usr/bin
 sudo chmod 755 /usr/bin/cldbuild
+
+
+
+
+OUT=$?
+if [ $OUT -ne 0 ]; then
+    echo "Problem found (4), stopping"
+    exit $OUT
+fi
 
 
 
