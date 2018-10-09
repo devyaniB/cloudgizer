@@ -6,7 +6,7 @@ Cloudgizer is Free and Open Source software distributed under Apache 2 License.
 
 For more information on Cloudgizer, including documentation, installation instructions (including Example Application and smoke tests) go to https://bitbucket.org/dasoftver/cloudgizer
 
-Contact email: dasoftver@gmail.com
+Contact email: admin@dasoftver.org
 
 Copyright (c) 2017 DaSoftver LLC.
 
