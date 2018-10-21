@@ -8,7 +8,7 @@ To read an introduction article, go to https://dasoftver.bitbucket.io/cloudgizer
 
 For more information on Cloudgizer, including documentation, installation instructions (including Example Application and smoke tests) go to https://dasoftver.bitbucket.io/cloudgizer/
 
-To get started quickly, read the article on how to install Cloudgizer and build your own application quickly at https://dasoftver.bitbucket.io/cloudgizer/how_to_install_cloudgizer.html
+To get started, read the article on how to install Cloudgizer and build your own application quickly at https://dasoftver.bitbucket.io/cloudgizer/how_to_install_cloudgizer.html
 
 Contact email: admin@dasoftver.org
 
