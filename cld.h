@@ -578,6 +578,7 @@ inline int cld_copy_data_from_int (char **data, int val);
 void file_too_large(input_req *iu, int max_size);
 void oops(input_req *iu, const char *err);
 int cld_total_so(so_info **sos);
+const char *cld_app_name ();
 
 
 // Application name for apache purposes 

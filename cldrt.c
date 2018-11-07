@@ -4294,13 +4294,18 @@ char *cld_time (const char *timezone, int year, int month, int day, int hour, in
     // cookies ONLY or for anything that needs GMT time in this format)
 #define GMT_BUFFER_SIZE 50
     char *buffer=(char*)cld_malloc(GMT_BUFFER_SIZE);
-    strftime(buffer,GMT_BUFFER_SIZE-1, "%a, %d %b %Y %H:%M:%S GMT", &future);
+    size_t time_succ = strftime(buffer,GMT_BUFFER_SIZE-1, "%a, %d %b %Y %H:%M:%S GMT", &future);
+    if (time_succ == 0)
+    {
+        cld_report_error ("Error in storing time to buffer, buffer is too small [%d]\n", GMT_BUFFER_SIZE);
+    }
     
     // go back to default timezone. See above about casting cld_get_tz()
     // to (char*)
     putenv((char*)cld_get_tz());
     tzset();
 
+    CLD_TRACE("Time is [%s]", buffer);
     return buffer;
 }
 
@@ -4318,3 +4323,11 @@ inline int cld_copy_data_from_int (char **data, int val)
     return cld_copy_data (data, n);
 }
 
+
+//
+// Return application name
+// 
+const char *cld_app_name ()
+{
+    return cld_handler_name;
+}

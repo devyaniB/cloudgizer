@@ -68,7 +68,7 @@ Cloudgizer is licensed under Apache 2 License.<br/>
 <br/>
 Current stable version is <b>1.2</b> (as tagged in git repository).<br/>
 <br/>
-This site has been last updated on Mon Oct 15 14:32:31 MST 2018.<br/>
+This site has been last updated on Tue Nov  6 12:13:51 MST 2018.<br/>
 <br/>
 This is the documentation for the latest Cloudgizer code. If you download older tagged versions from the git repository, each comes with 'docs' directory that contains the documentation matching that version.<br/>
 <br/>
@@ -3904,13 +3904,13 @@ close (file_descriptor);<br/>
 <h3>Get application home directory</h3>
 </a>
 <br/>
-Application's home directory is a directory named after application name location directly under the home directory of the user who executes the program:<br/>
+Application's home directory is a directory named after application name located directly under the home directory of the user who executes the program:<br/>
 <div class="codestyle">
 char *home_directory = <span style="color:blue">cld_home_dir</span> ();<br/>
 </div>
 If cannot determine application home directory, empty string ("") is returned.<br/>
 <br/>
-Application's home directory is based on application name. For example, if variable <span style="color:blue">cld_handler_name</span> is 'your_app_name' (which is the same as <span style="color:blue">CLD_APP_NAME</span> in <span style="color:blue">appinfo</span> during installation), then application home directory is /home/user/your_app_name. Do not ever change variable <span style="color:blue">cld_handler_name</span>.<br/>
+Application's home directory is based on application name, which you can obtain via <span style="color:blue">cld_app_name()</span>.<br/>
 <a id='158'>
 <h3>Check if directory</h3>
 </a>
@@ -4062,15 +4062,13 @@ The time returned shows year, month, day of month, hour, minute, second, separat
 <h3>Get application name</h3>
 </a>
 <br/>
-Application name is stored in global variable <span style="color:blue">cld_handler_name</span>, this is the same as <span style="color:blue">CLD_APP_NAME</span> in <span style="color:blue">appinfo</span> file during installation. <br/>
+Application name can be obtained via &nbsp;<span style="color:blue">cld_app_name</span> function call, this is the same as <span style="color:blue">CLD_APP_NAME</span> in <span style="color:blue">appinfo</span> file during installation. <br/>
 <div class="codestyle">
 /*&lt;<br/>
- &nbsp;Application name is &lt;?print-web <span style="color:blue">cld_handler_name</span>?&gt;<br/>
+ &nbsp;Application name is &lt;?print-web <span style="color:blue">cld_app_name()</span>?&gt;<br/>
 &gt;*/<br/>
 </div>
-Application's home directory is based on it. For example, if <span style="color:blue">cld_handler_name</span> is 'your_app_name', then application home directory is /home/user/your_app_name.<br/>
-<br/>
-Never change <span style="color:blue">cld_handler_name</span>.<br/>
+Application's home directory is based on it. Always use <span style="color:blue">cld_home_dir()</span> to get the application home directory.<br/>
 <a id='173'>
 <h3>Get environment variable (web or command shell)</h3>
 </a>
