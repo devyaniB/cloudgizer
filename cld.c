@@ -76,6 +76,9 @@ You may obtain a copy of the License at
 #define CLD_KEYPROGRAMOUTPUTLEN "program-output-length "
 #define CLD_KEYPROGRAMARGS "program-args "
 #define CLD_KEYPROGRAMSTATUS "program-status "
+#define CLD_KEYSUBJECT "subject "
+#define CLD_KEYHEADERS "headers "
+#define CLD_KEYBODY "body "
 // maximum length of generated code line (in .c file, final line)
 #define CLD_MAX_CODE_LINE 4096
 // error messages
@@ -241,6 +244,7 @@ void add_query_fragment(char *name, char *text, const char *fname, int lnum);
 char *find_query_fragment(char *name, const char *fname, int lnum);
 void out_verbose(int cld_line, const char *format, ...);
 void add_input_param (cld_gen_ctx *gen_ctx, int query_id, int is_inp_str, char *inp_par, const char *file_name, int lnum);
+void carve_markup (char **markup, const char *markup_name, const char *keyword, int is_mandatory, int no_data, int can_be_defined, const char *fname, int lnum);
 #define  CLD_VERBOSE(lnum,...) out_verbose(lnum,  __VA_ARGS__)
 // 
 // Close the line in code generation. At the end of each markup we generate a code to start "printing"
@@ -261,6 +265,61 @@ int get_query_id (cld_gen_ctx *gen_ctx, char *mtext, int msize, const char *file
 //
 //
 
+//
+// Get value of option in markup. For example, if markup is 
+// send-mail from "x@y.com" to "z@w.com" ...
+// then you can get "x@y.com" by doing this:
+// 
+// char *from = NULL;
+// carve_markup (&from, "send-mail", CLD_KEYFROM, 1, 1, 0, file_name, lnum);
+//
+// where variable 'from' will be "x@y.com", '1' as 'is_mandatory' parameter means this parameter MUST be present, and fname and lnum
+// indicate where we're at in the parsing process (file name and line number).
+// 'send-mail' is the name of top markup, and CLD_KEYFROM is "from", and we're parsing out the data after it.
+// NOTE that 'from' MUST point to actual "x@y.com" within original send-mail string. This means ALL options must be first
+// found with strstr() before calling this function for any of them.
+// This function MUST be called for ALL markup options - if not then some markup values will contain other markup and will be 
+// INCORRECT. 
+// 'has_data' is 0 if the option is alone without data, for example 'no-cert'. Typically it's 1.
+// 'can_be_defined' is 1 if the option can be defined as string. This is typically for a resulting option that's a string. Mostly it's 0.
+//
+void carve_markup (char **markup, const char *markup_name, const char *keyword, int is_mandatory, int has_data, int can_be_defined, const char *fname, int lnum)
+{
+    //
+    // *markup is the result of strstr(mtext, keyword) - and these MUST
+    // be done for ALL options prior to calling this function
+    //
+    if (*markup != NULL) 
+    {
+        char *end_of_url = *markup;
+        // advance past the keyword
+        *(*markup = (*markup + strlen (keyword)-1)) = 0;
+        (*markup)++;
+        *end_of_url = 0;
+
+        if (has_data==0)
+        {
+            (*markup)[0] = 0; // no data for this option, we only care if present or not present.
+        }
+
+        if (can_be_defined==1)
+        {
+            //
+            // This is if option can be of form 'define some_var'
+            //
+            int is_def_result = 0;
+            is_opt_defined (markup, &is_def_result, fname, lnum);
+            if (is_def_result == 1)
+            {
+                oprintf ("char *%s = cld_init_string (\"\");\n", *markup);
+            }
+        }
+    }
+    else if (is_mandatory==1)
+    {
+        _cld_report_error( "%s markup is missing in %s, reading file [%s] at line [%d]", keyword, markup_name, fname, lnum);
+    }
+}
 
 //
 // Get query id for a markup that follows something#queryname as define .... mtext is anything 
@@ -3965,6 +4024,49 @@ void cld_gen_c_code (cld_gen_ctx *gen_ctx, const char *file_name)
 
                     oprintf ("cld_post_url_with_response(%s, &(%s), &(%s), %s, %s);\n", mtext, resp, err, nocert != NULL ? "NULL" : (cert != NULL ? cert : "\"\""), 
                         cookiejar == NULL ? "NULL":cookiejar);
+
+                    BEGIN_TEXT_LINE
+
+                    continue;
+                }
+                else if ((newI=recog_markup (line, i, "send-mail", &mtext, &msize, 0, file_name, lnum)) != 0)  
+                {
+                    i = newI;
+                    END_TEXT_LINE
+                    // Example:
+                    // send-mail from "x@y.com" to "z@x.com" subject "subject of message" headers "x:z\r\nw:y" body "This is the body of email message" status int_var
+                    // headers is optional, others are mandatory
+
+                    //
+                    // Look for each option and collect relevant info
+                    // First we MUST get each options position
+                    //
+                    char *from = strstr (mtext, CLD_KEYFROM);
+                    char *to = strstr (mtext, CLD_KEYTO);
+                    char *subject = strstr (mtext, CLD_KEYSUBJECT);
+                    char *headers = strstr (mtext, CLD_KEYHEADERS);
+                    char *body = strstr (mtext, CLD_KEYBODY);
+                    char *status = strstr (mtext, CLD_KEYSTATUS);
+
+                    //
+                    // After all options positions have been found, we must get the options 
+                    // for ALL of them
+                    //
+                    carve_markup (&from, "send-mail", CLD_KEYFROM, 1, 1, 0, file_name, lnum);
+                    carve_markup (&to, "send-mail", CLD_KEYTO, 1, 1, 0, file_name, lnum);
+                    carve_markup (&subject, "send-mail", CLD_KEYSUBJECT, 1, 1, 0, file_name, lnum);
+                    carve_markup (&headers, "send-mail", CLD_KEYHEADERS, 0, 1, 0, file_name, lnum);
+                    carve_markup (&body, "send-mail", CLD_KEYBODY, 1, 1, 0, file_name, lnum);
+                    carve_markup (&status, "send-mail", CLD_KEYSTATUS, 0, 1, 0, file_name, lnum);
+
+                    //
+                    // If there is data right after markup (i.e. 'send-mail') and it has no option (such as web-call https://...)
+                    // then mtext is this option (in this case https://...). In this particular case, we don't have such an option -
+                    // every option has a keyword preceding it, including the first one.
+                    //
+
+                    oprintf ("%s%scld_sendmail(%s, %s, %s, %s, %s);\n", status == NULL ? "":status, status == NULL ? "":"=", 
+                        from, to, subject, headers == NULL ? "NULL" : headers, body);
 
                     BEGIN_TEXT_LINE
 

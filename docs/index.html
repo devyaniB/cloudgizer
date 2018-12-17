@@ -68,13 +68,13 @@ Cloudgizer is licensed under Apache 2 License.<br/>
 <br/>
 Current stable version is <b>1.2</b> (as tagged in git repository).<br/>
 <br/>
-This site has been last updated on Tue Nov  6 12:13:51 MST 2018.<br/>
+This site has been last updated on Sun Dec 16 22:36:26 MST 2018.<br/>
 <br/>
 This is the documentation for the latest Cloudgizer code. If you download older tagged versions from the git repository, each comes with 'docs' directory that contains the documentation matching that version.<br/>
 <br/>
 Read an article  <a href="introduction.html">introducing Cloudgizer</a>.<br/>
 <br/>
-To get started quickly, read the article on <a href="how_to_install_cloudgizer.html">how to install Cloudgizer and build your own application quickly</a>.
+To get started now, read the article on <a href="how_to_install_cloudgizer.html">how to install Cloudgizer and build your own application quickly</a>.
 <hr/>
 <br/>
 
@@ -82,7 +82,7 @@ To get started quickly, read the article on <a href="how_to_install_cloudgizer.h
 <a href='#0'>About Cloudgizer</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href='#1'>Example source code - learn by example</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href='#2'>License</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#3'>Source code, reporting issues</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#3'>Source code & Issue tracking</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href='#4'>Hello world</a><br/>
 <a href='#5'>Basics</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href='#6'>The big picture</a><br/>
@@ -151,108 +151,109 @@ To get started quickly, read the article on <a href="how_to_install_cloudgizer.h
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#69'>NULL and result column data types</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href='#70'>Executing Cloudgizer program from command line</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href='#71'>Executing external programs</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#72'>Loading URL content (calling a web page) programmatically</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#73'>Strings</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#74'>Defining and copying strings</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#75'>Appending string</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#76'>Search and replace string</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#77'>Constructing complex strings</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#78'>Program flow</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#79'>Loops</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#80'>Conditional statements (if, else...)</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#81'>Files</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#82'>File storage</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#83'>Permissions and ownership</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#84'>Uploading files</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#85'>Reading a whole file</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#86'>Writing a whole file or appending to a file</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#87'>Copying a file</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#88'>Web address of server</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#89'>Error handling in general</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#90'>Include files</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#91'>Debugging your code</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#92'>Tracing and debugging options</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#93'>Finding where program crashed</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#94'>Enabling debugging information</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#95'>Which shared libraries are loaded?</a><br/>
-<a href='#96'>API</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#97'>Memory allocation</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#98'>Allocation and garbage collection</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#99'>Get size of memory allocated for variable</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#100'>Check if allocated memory is valid, overwritten or underwritten</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#101'>Configuration parameters</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#102'>Tracing and debugging</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#103'>Write to trace file</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#104'>Which trace file is being written to?</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#105'>Using custom tag value for debugging</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#106'>Linting your HTML code dynamically</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#107'>URL input</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#108'>URL input parameters</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#109'>Is URL referrer from the same site?</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#110'>URL string that is being processed</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#111'>URL parameters manipulation</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#112'>Cookies</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#113'>Data type for storing</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#114'>Cookies: get, set, delete, find</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#115'>Global data</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#116'>Encoding and Decoding, URL encoding, Web encoding, Base64 encoding</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#117'>Numbers</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#118'>Create string from integer</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#119'>Check if string is a positive integer or a number</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#120'>Execution of external programs, piping from one program to another</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#121'>Output data and HTTP header</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#122'>Outputting HTTP header, custom HTTP response headers</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#123'>Encoding data for output</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#124'>Output text without breaks</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#125'>Disable and Enable HTML output, status of enablement</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#126'>Send files to the client and output HTTP headers for files</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#127'>File not found (404)</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#128'>Flush output</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#129'>Create new database document and a new associated file</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#130'>Strings</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#131'>Initialize, Copy, Append strings</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#132'>Output data to string</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#133'>Change case of strings (upper, lower)</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#134'>Substrings</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#135'>Trim string</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#136'>Break down string into an array of strings based on a delimiter</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#137'>Clear Unused variable error</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#138'>Error reporting</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#139'>Encryption and hashing</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#140'>Hashing</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#141'>Encrypting data</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#142'>Decrypting data</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#143'>Generating random string</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#144'>Storing and retrieving data in a sequential list (FIFO)</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#145'>Executing Cloudgizer program from command line (Batch processing)</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#146'>Using batch processing</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#147'>Exit code for batch processing</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#148'>POST URL (web call)</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#149'>Files</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#150'>File storage</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#151'>Get file size</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#152'>Copy files</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#153'>Read entire file into a string variable</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#154'>Write whole file from a string</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#155'>Append to file from a string</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#156'>Lock a file</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#157'>Get application home directory</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#158'>Check if directory</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#159'>Temporary files</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#160'>Send email</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#161'>Queries and Transactions</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#162'>SELECT from the database</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#163'>Get value from auto-increment column</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#164'>Execute any SQL other than SELECT, including DDL statements</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#165'>Check for open transaction</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href='#166'>Get miscellaneous</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#167'>Get web address for forms and links</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#168'>Get Base URL of server</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#169'>Get version</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#170'>Get current, past or future time, including GMT</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#171'>Get current time</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#172'>Get application name</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#173'>Get environment variable (web or command shell)</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#72'>Sending emails</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#73'>Loading URL content (calling a web page) programmatically</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#74'>Strings</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#75'>Defining and copying strings</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#76'>Appending string</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#77'>Search and replace string</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#78'>Constructing complex strings</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#79'>Program flow</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#80'>Loops</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#81'>Conditional statements (if, else...)</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#82'>Files</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#83'>File storage</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#84'>Permissions and ownership</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#85'>Uploading files</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#86'>Reading a whole file</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#87'>Writing a whole file or appending to a file</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#88'>Copying a file</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#89'>Web address of server</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#90'>Error handling in general</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#91'>Include files</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#92'>Debugging your code</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#93'>Tracing and debugging options</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#94'>Finding where program crashed</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#95'>Enabling debugging information</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#96'>Which shared libraries are loaded?</a><br/>
+<a href='#97'>API</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#98'>Memory allocation</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#99'>Allocation and garbage collection</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#100'>Get size of memory allocated for variable</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#101'>Check if allocated memory is valid, overwritten or underwritten</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#102'>Configuration parameters</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#103'>Tracing and debugging</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#104'>Write to trace file</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#105'>Which trace file is being written to?</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#106'>Using custom tag value for debugging</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#107'>Linting your HTML code dynamically</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#108'>URL input</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#109'>URL input parameters</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#110'>Is URL referrer from the same site?</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#111'>URL string that is being processed</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#112'>URL parameters manipulation</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#113'>Cookies</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#114'>Data type for storing</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#115'>Cookies: get, set, delete, find</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#116'>Global data</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#117'>Encoding and Decoding, URL encoding, Web encoding, Base64 encoding</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#118'>Numbers</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#119'>Create string from integer</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#120'>Check if string is a positive integer or a number</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#121'>Execution of external programs, piping from one program to another</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#122'>Output data and HTTP header</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#123'>Outputting HTTP header, custom HTTP response headers</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#124'>Encoding data for output</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#125'>Output text without breaks</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#126'>Disable and Enable HTML output, status of enablement</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#127'>Send files to the client and output HTTP headers for files</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#128'>File not found (404)</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#129'>Flush output</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#130'>Create new database document and a new associated file</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#131'>Strings</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#132'>Initialize, Copy, Append strings</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#133'>Output data to string</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#134'>Change case of strings (upper, lower)</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#135'>Substrings</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#136'>Trim string</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#137'>Break down string into an array of strings based on a delimiter</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#138'>Clear Unused variable error</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#139'>Error reporting</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#140'>Encryption and hashing</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#141'>Hashing</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#142'>Encrypting data</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#143'>Decrypting data</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#144'>Generating random string</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#145'>Storing and retrieving data in a sequential list (FIFO)</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#146'>Executing Cloudgizer program from command line (Batch processing)</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#147'>Using batch processing</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#148'>Exit code for batch processing</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#149'>POST URL (web call)</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#150'>Files</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#151'>File storage</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#152'>Get file size</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#153'>Copy files</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#154'>Read entire file into a string variable</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#155'>Write whole file from a string</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#156'>Append to file from a string</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#157'>Lock a file</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#158'>Get application home directory</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#159'>Check if directory</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#160'>Temporary files</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#161'>Send email</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#162'>Queries and Transactions</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#163'>SELECT from the database</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#164'>Get value from auto-increment column</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#165'>Execute any SQL other than SELECT, including DDL statements</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#166'>Check for open transaction</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href='#167'>Get miscellaneous</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#168'>Get web address for forms and links</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#169'>Get Base URL of server</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#170'>Get version</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#171'>Get current, past or future time, including GMT</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#172'>Get current time</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#173'>Get application name</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#174'>Get environment variable (web or command shell)</a><br/>
 
 <a id='0'>
 <h1>About Cloudgizer</h1>
@@ -280,7 +281,7 @@ Browse the source code for both Example application and Rentomy to learn by exam
 <br/>
 Cloudgizer is licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.<br/>
 <a id='3'>
-<h2>Source code, reporting issues</h2>
+<h2>Source code & Issue tracking</h2>
 </a>
 <br/>
 Source code is available at <a href="https://bitbucket.org/dasoftver/cloudgizer/">Cloudgizer git repository</a>.  <br/>
@@ -1908,6 +1909,15 @@ You can also define the status of execution and the output buffer in the markup 
 </div>
 If you want more complex use cases, such as redirecting file to stdin, and redirecting stdout/stderr to a file, or if you want to create a "pipe", i.e. execute two programs where output of one is the input of another use <a href="#program_execution_functions">program execution functions</a>.
 <a id='72'>
+<h2>Sending emails</h2>
+</a>
+Use <span style="color:blue">send-email</span> to send emails:<br/>
+<div class="codestyle">
+</span>define-int</span> st<br/>
+<span style="color:blue">send-email</span> <span style="color:blue">from</span> "joe@xyz.com" <span style="color:blue">to</span> "mike@zyx.com" <span style="color:blue">subject</span> "Hi there" <span style="color:blue">headers</span> "MIME-Version: 1.0\r\nContent-Type: text/html" <span style="color:blue">body</span> "Let's meet at 10am&lt;br/&gt;" <span style="color:blue">status</span> st<br/>
+</div>
+The sender of email is given by <span style="color:blue">from</span> clause ("joe@xyz.com") and the email recipient is given with <span style="color:blue">to</span> ("mike@zyx.com"). The subject is provided with <span style="color:blue">subject</span> clause ("Hi there"). Any headers are in <span style="color:blue">headers</span> clause (which indicate this is an HTML email), and body of the email is given with <span style="color:blue">body</span> clause.. The <span style="color:blue">status</span> clause ('st') is the status of sendmail program used to send the message. Headers and status are optional while other clauses are mandatory.<br/>
+<a id='73'>
 <h2>Loading URL content (calling a web page) programmatically</h2>
 </a>
 Use <span style="color:blue">web-call</span> to get the result of loading the content of a URL via GET method:<br/>
@@ -1931,14 +1941,14 @@ or without checking HTTPS certificate:<br/>
 Response that redirects to another URL will be followed up to 4 times. The response is the body message, not the headers.<br/>
 <br/>
 This function does not return length of a response, because it is meant to be used as a text-based (i.e. null-terminated string based) messaging system. For uploading or downloading files, a more encapsulated method would be to use command-line utilities (such as curl or rcopy) via <a href="#program_execution_functions">program execution functions</a>.
-<a id='73'>
+<a id='74'>
 <h2>Strings</h2>
 </a>
 <br/>
 Strings are 'char *' variables that are allocated by Cloudgizer's memory allocation system. Typically you never free them. They are freed at the end of each request.<br/>
 <br/>
 If you are using any <span style="color:blue">cld_*</span> function that alters strings (i.e. as an output parameter) or in markup constructs that alter strings (such as <span style="color:blue">append-string</span> or <span style="color:blue">write-string</span>), then such strings <b>must</b> be defined using one of the following methods, or by means of API functions such as <span style="color:blue">cld_malloc</span>, <span style="color:blue">cld_calloc</span> or <span style="color:blue">cld_realloc</span>. Usage of other kinds of 'char *' variables will likely be detected by Cloudgizer and program halted.<br/>
-<a id='74'>
+<a id='75'>
 <h3>Defining and copying strings</h3>
 </a>
 <ul><li>To define a string, use <span style="color:blue">define-string</span>:<br/>
@@ -1964,7 +1974,7 @@ When you copy into a string with <span style="color:blue">copy-string</span>, th
 </div>
 </li></ul><br/>
 You should not assign NULL value to a string. Use empty strings (as described above) instead.<br/>
-<a id='75'>
+<a id='76'>
 <h3>Appending string</h3>
 </a>
 Use <span style="color:blue">append-string</span>:<br/>
@@ -1979,7 +1989,7 @@ Use <span style="color:blue">append-string</span>:<br/>
 The output is:<br/>
 <br/>
 Hello world!<br/>
-<a id='76'>
+<a id='77'>
 <h3>Search and replace string</h3>
 </a>
 Use <span style="color:blue">subst-string</span> and <span style="color:blue">subst-string-all</span>:<br/>
@@ -2005,7 +2015,7 @@ The above will produce the output:<br/>
 Have a great day and great night!<br/>
 <br/>
 The string where replacement takes place (in this case 'my_str') must have been defined with <span style="color:blue">define-string</span>.<br/>
-<a id='77'>
+<a id='78'>
 <h3>Constructing complex strings</h3>
 </a>
 Instead of output being sent to the Web client, it can be directed into a string. &nbsp;Use <span style="color:blue">write-string</span> and <span style="color:blue">end-write-string</span> to do this:<br/>
@@ -2165,10 +2175,10 @@ char *func2()<br/>
 The output is the same.</li></ul><br/>
 <br/>
 All leading and trailing whitespaces are trimmed from each line. Only the whitespaces within each line are output. Text is output as non-encoded (as opposed to URL or web encoded), unless you specifically output something encoded otherwise.<br/>
-<a id='78'>
+<a id='79'>
 <h2>Program flow</h2>
 </a>
-<a id='79'>
+<a id='80'>
 <h3>Loops</h3>
 </a>
 Use <span style="color:blue">for</span> and <span style="color:blue">end-for</span> markups:<br/>
@@ -2190,7 +2200,7 @@ Outputting #6<br/>
 Outputting #7<br/>
 Outputting #8<br/>
 Outputting #9<br/>
-<a id='80'>
+<a id='81'>
 <h3>Conditional statements (if, else...)</h3>
 </a>
 Conditional statements can be used as follows:<br/>
@@ -2231,11 +2241,11 @@ With <span style="color:blue">if-string</span> markups, <span style="color:blue"
 In general, use variables and multiple <span style="color:blue">if-string</span>s to break down the logic and write simpler constructs. The intention of <span style="color:blue">if-string</span> is to make complex decision making process easier to read, and not to enable short and obfuscated code.<br/>
 <br/>
 Use <span style="color:blue">if</span> for more complex conditional expressions, if needed. To compare strings case-insensitive, use <span style="color:blue">if-string-case</span> and <span style="color:blue">else-if-string-case</span>.</li></ul><br/>
-<a id='81'>
+<a id='82'>
 <h2>Files</h2>
 </a>
 <a id="file_storage"></a>
-<a id='82'>
+<a id='83'>
 <h3>File storage</h3>
 </a>
 <br/>
@@ -2254,12 +2264,12 @@ File names are always based on the ID number, so that changing the number of fil
 Typically, an application will store file names in the database and actual files in file storage in <span style="color:blue">file</span> directory. Each file has a unique ID, and you can use this ID to reference a file in the database, see an example in <a href="#file_create">file creation API</a>.<br/>
 <br/>
 The table <span style="color:blue">cldDocumentIDGenerator</span> is used to create unique file names across the application, even when multiple requests are made at the same time. This table is created as part of Cloudgizer's installation and used internally to deliver this functionality - you don't have to ever deal with it.<br/>
-<a id='83'>
+<a id='84'>
 <h3>Permissions and ownership</h3>
 </a>
 <br/>
 Any files created by Cloudgizer (i.e. through uploading from web clients, writing files etc.) are owned by Cloudgizer user and have 700 access permission (owner-only reading, writing and accessing). Group has no privileges, and neither have other users. The Cloudgizer user's home directory is also set up with 700 access permission. <br/>
-<a id='84'>
+<a id='85'>
 <h3>Uploading files</h3>
 </a>
 <br/>
@@ -2289,7 +2299,7 @@ For example, for an HTML form which is uploading a file with a input HTML file o
 You have uploaded file <span style="color:blue">&lt;?print-web</span> myfile<span style="color:blue">_filename</span><span style="color:blue">?&gt;</span> to a server file at <span style="color:blue">&lt;?print-web</span> myfile<span style="color:blue">_location</span><span style="color:blue">?&gt;</span> &nbsp;...<br/>
 </div>
 </li></ul><br/>
-<a id='85'>
+<a id='86'>
 <h3>Reading a whole file</h3>
 </a>
 Use <span style="color:blue">read-file</span> to read a whole file:<br/>
@@ -2313,7 +2323,7 @@ The above example will read a file /home/user/some_file and store the result int
 <br/>
 <span style="color:blue">read-file</span> "/home/user/some_file" <span style="color:blue">to</span> file_content <span style="color:blue">status</span> st<br/>
 </div>
-<a id='86'>
+<a id='87'>
 <h3>Writing a whole file or appending to a file</h3>
 </a>
 Use <span style="color:blue">write-file</span> to write to a file:<br/>
@@ -2351,7 +2361,7 @@ This will also return the status of file writing to integer variable my_status. 
 <span style="color:blue">write-file</span> "/home/myuser/file_name" <span style="color:blue">from</span> "Some string expression" <span style="color:blue">length</span> 7 <span style="color:blue">status</span> my_status <span style="color:blue">append</span><br/>
 </div>
 This is the same as above, only with explicitly defining my_status variable.</li></ul><br/>
-<a id='87'>
+<a id='88'>
 <h3>Copying a file</h3>
 </a>
 Use <span style="color:blue">copy-file</span> to copy a file to another file. The target file is created if it does not exist.<br/>
@@ -2367,7 +2377,7 @@ You can omit <span style="color:blue">define</span> for status:<br/>
 <br/>
 <span style="color:blue">copy-file</span> "/home/user/source_file" <span style="color:blue">to</span> "/home/user/target_file" <span style="color:blue">status</span> st<br/>
 </div>
-<a id='88'>
+<a id='89'>
 <h2>Web address of server</h2>
 </a>
 Web address is the URL specified in <span style="color:blue">config</span> file in <span style="color:blue">web_address</span> variable.<br/>
@@ -2389,7 +2399,7 @@ will produce for example:<br/>
 will produce for example:<br/>
 <br/>
 &lt;a href="https://myserver.com/go.your_app_name?page=abc&amp;action=do_something"&gt;</li></ul><br/>
-<a id='89'>
+<a id='90'>
 <h2>Error handling in general</h2>
 </a>
 <br/>
@@ -2410,19 +2420,19 @@ When checking errors in your application (i.e. errors that are recoverable), and
 <span style="color:blue">end-if</span><br/>
 </div>
 <span style="color:blue">report-error</span> takes arguments the same way as standard printf function. &nbsp;<br/>
-<a id='90'>
+<a id='91'>
 <h2>Include files</h2>
 </a>
 <br/>
 Do not use Cloudgizer markup code in include files. Instead place all of it in .v files, which are translated into .c files. Use inline code if you need to avoid function calls.<br/>
 <a id="debugging_and_tracing"></a>
-<a id='91'>
+<a id='92'>
 <h2>Debugging your code</h2>
 </a>
 Generally, you can debug Apache server by forcing it into a single-process mode, running it in gdb and hunting for problems there. A good tutorial on this can be found at <a href="https://httpd.apache.org/dev/debugging.html" target="_blank">https://httpd.apache.org/dev/debugging.html</a>. Once in debugger, you'd want to break in <span style="color:blue">cld_main</span> function, which is the root function for any Cloudgizer application. If for some reason this doesn't work, you have another option, described here.<br/>
 <br/>
 <a id="debug_file"></a>
-<a id='92'>
+<a id='93'>
 <h3>Tracing and debugging options</h3>
 </a>
 These options are located in the <span style="color:blue">trace/debug</span> file, meaning <span style="color:blue">debug</span> file in the <span style="color:blue">trace</span> directory under application's home directory. Typically, you'd have this in it during development:<br/>
@@ -2470,7 +2480,7 @@ or you may do something else entirely, depending on where you suspect the proble
 </li></ul> <br/>
 <br/>
 Make sure not to use <span style="color:blue">sleep</span>, <span style="color:blue"> lint</span>, <span style="color:blue">memorycheck</span> and <span style="color:blue">tag</span> in your production code.<br/>
-<a id='93'>
+<a id='94'>
 <h3>Finding where program crashed</h3>
 </a>
 <br/>
@@ -2532,16 +2542,16 @@ START STACK DUMP ***********<br/>
  /home/hellocld/rentomy/mod.c:52<br/>
  /usr/lib64/httpd/modules/libcldapp_rentomy.so(+0xad4d4) [0x7f4cd77544d4]<br/>
 </div>
-<a id='94'>
+<a id='95'>
 <h3>Enabling debugging information</h3>
 </a>
 To enable debugging with gdb, set <span style="color:blue">CLDDEBUG</span> variable in supplied <span style="color:blue">cldmakefile</span> to 1 when making your application. This will turn on debug code generation for gdb.<br/>
-<a id='95'>
+<a id='96'>
 <h3>Which shared libraries are loaded?</h3>
 </a>
 <br/>
 Check the beginning of the request's trace file - it shows all shared objects loaded, their names and their address ranges. This is useful when figuring out the configuration of Apache server, and otherwise.<br/>
-<a id='96'>
+<a id='97'>
 <h1>API</h1>
 </a>
 <br/>
@@ -2550,10 +2560,10 @@ The following is the list of publicly available data types and functions.<br/>
 Do not use API for common markups provided otherwise. For example, do not use input parameters API, but rather use <span style="color:blue">input-param</span> markup. If underlying API and types change, you'll have to change your code.<br/>
 <br/>
 Use API only if there is no alternative. The same goes for any other C code you may write, be in direct C code or through <span style="color:blue">c</span> and <span style="color:blue">start-c</span> markups.<br/>
-<a id='97'>
+<a id='98'>
 <h2>Memory allocation</h2>
 </a>
-<a id='98'>
+<a id='99'>
 <h3>Allocation and garbage collection</h3>
 </a>
 The following memory allocation functions are available:<br/>
@@ -2577,7 +2587,7 @@ Memory garbage collector is provided and will release all allocated memory at th
 Do not try to minimize memory usage of a request unless you have a very good reason to, because most requests take relatively short time to complete and memory will be released shortly. Great many bugs and crashes come out of using free()-like functions improperly.<br/>
 <br/>
 Never use library functions malloc(), free() etc. unless you have an extremely compelling reason, for example if you need to allocate memory and some library frees it. Do not use pointers obtained from Cloudgizer with library functions such as free() or realloc(), and vice versa.<br/>
-<a id='99'>
+<a id='100'>
 <h3>Get size of memory allocated for variable</h3>
 </a>
 When variable is allocated by means of <span style="color:blue">define-string</span> or <span style="color:blue">cld_malloc</span> (or such) functions, you can determine at run-time how many bytes are currently allocated for this variable:<br/>
@@ -2587,7 +2597,7 @@ char *ptr = <span style="color:blue">cld_malloc</span> (200);<br/>
 <span style="color:blue">cld_check_memory</span> (ptr, &amp;sz);<br/>
 </div>
 Variable 'sz' will have value of somewhat over 200 (accounting for overhead in allocating memory). If pointer 'ptr' was not allocated by Cloudgizer functions or markup, program will error out. <br/>
-<a id='100'>
+<a id='101'>
 <h3>Check if allocated memory is valid, overwritten or underwritten</h3>
 </a>
 If you want to check if memory pointer is valid and if memory hasn't been overwritten or underwritten, use <span style="color:blue">cld_check_memory</span>:<br/>
@@ -2597,7 +2607,7 @@ int i = <span style="color:blue">cld_check_memory</span> (p, NULL);<br/>
 p is a pointer returned from <span style="color:blue">define-string</span>, <span style="color:blue">cld_malloc</span> or other such functions. This is an assertive function, i.e. your program will report an error if the memory block is invalid. If memory is okay, it returns an index into an internal memory array that holds information about allocated pointers. This index is for internal purposes only, do not use it in any way.<br/>
 <br/>
 <a id="configuration_parameters"></a>
-<a id='101'>
+<a id='102'>
 <h2>Configuration parameters</h2>
 </a>
 <br/>
@@ -2681,10 +2691,10 @@ while (1)<br/>
 }<br/>
 </div>
 </li></ul><br/>
-<a id='102'>
+<a id='103'>
 <h2>Tracing and debugging</h2>
 </a>
-<a id='103'>
+<a id='104'>
 <h3>Write to trace file</h3>
 </a>
 <br/>
@@ -2695,7 +2705,7 @@ Trace call allows you to write to current process' trace file:<br/>
 Trace call uses printf syntax to output data. &nbsp;<br/>
 <br/>
 Trace will be written only if <span style="color:blue">trace</span> parameter in <span style="color:blue">debug</span> file is 1. <br/>
-<a id='104'>
+<a id='105'>
 <h3>Which trace file is being written to?</h3>
 </a>
 <br/>
@@ -2703,7 +2713,7 @@ The name of current trace file is:<br/>
 <div class="codestyle">
 <span style="color:blue">cld_get_config()-&gt;app-&gt;trace.fname</span><br/>
 </div>
-<a id='105'>
+<a id='106'>
 <h3>Using custom tag value for debugging</h3>
 </a>
 <br/>
@@ -2714,7 +2724,7 @@ Use <span style="color:blue">cld_get_config()-&gt;debug.tag</span> to access <sp
 end-if<br/>
 </div>
 In production, you would clear the <span style="color:blue">tag</span> value. &nbsp;<br/>
-<a id='106'>
+<a id='107'>
 <h3>Linting your HTML code dynamically</h3>
 </a>
 Use <span style="color:blue">cld_lint_text</span> to check validity of HTML code generated dynamically at run-time (for example check HTML emails before sending or check snippets of generated code not directly displayed):<br/>
@@ -2737,10 +2747,10 @@ In this example, Cloudgizer will check validity of HTML in html_code (as XHTML) 
 If there is an error, program will stop and you can see more information in program's trace file (under <span style="color:blue">trace</span> directory).<br/>
 <br/>
 Note that Cloudgizer will lint your web output automatically if <span style="color:blue"> lint</span> is 1. Use this function to check snippets of HTML that are not output directly by your program.<br/>
-<a id='107'>
+<a id='108'>
 <h2>URL input</h2>
 </a>
-<a id='108'>
+<a id='109'>
 <h3>URL input parameters</h3>
 </a>
 <br/>
@@ -2759,14 +2769,14 @@ Names and values of input parameters are:<br/>
 ...<br/>
 </div>
 etc. up to the total number of input parameters<br/>
-<a id='109'>
+<a id='110'>
 <h3>Is URL referrer from the same site?</h3>
 </a>
 <br/>
 Use <span style="color:blue">cld_get_config()-&gt;ctx.req-&gt;from_here</span> to determine if the current web request originated from the same site or not. For example, you may not want to spend bandwidth on images not shown from your application, if that's how it's designed. This flag is 1 if the current web request originated from the same site, otherwise 0.<br/>
 <br/>
 Note that <span style="color:blue">from_here</span> will be 1 if the URL is opened from a web client directly by the end-user.<br/>
-<a id='110'>
+<a id='111'>
 <h3>URL string that is being processed</h3>
 </a>
 <br/>
@@ -2778,7 +2788,7 @@ and the referring URL is:<br/>
 <div class="codestyle">
 <span style="color:blue">cld_get_config()-&gt;ctx.req-&gt;referring_url</span><br/>
 </div>
-<a id='111'>
+<a id='112'>
 <h3>URL parameters manipulation</h3>
 </a>
 <br/>
@@ -2852,10 +2862,10 @@ Then you can manipulate this URL, for example:<br/>
 char *new_url = <span style="color:blue">cld_construct_url</span> (&amp;ip);<br/>
 </div>
 Variable new_url now has value "https://myserver.com/cld.do?param1=new%20value%201&amp;param2=value2". </li></ul><br/>
-<a id='112'>
+<a id='113'>
 <h2>Cookies</h2>
 </a>
-<a id='113'>
+<a id='114'>
 <h3>Data type for storing</h3>
 </a>
 Cookies passed from HTTP are in:<br/>
@@ -2868,7 +2878,7 @@ up to the number of cookies, which is:<br/>
 <div class="codestyle">
 <span style="color:blue">cld_get_config()-&gt;ctx.req-&gt;num_of_cookies</span><br/>
 </div>
-<a id='114'>
+<a id='115'>
 <h3>Cookies: get, set, delete, find</h3>
 </a>
 <br/>
@@ -2903,7 +2913,7 @@ You must set a cookie before outputting the HTTP header, such as in <span style=
 int deleted = <span style="color:blue">cld_delete_cookie</span> (req, "my_cookie");<br/>
 </div>
 This will delete cookie "my_cookie" (cookie can still be found, but it is set to a value that will delete it in the web client such as browser). If it is not found, this function returns -1, otherwise it returns index into <span style="color:blue">cld_get_config()-&gt;ctx.req-&gt;cookies[]</span> array where it was found. </li></ul><br/>
-<a id='115'>
+<a id='116'>
 <h2>Global data</h2>
 </a>
 <br/>
@@ -2912,7 +2922,7 @@ If you need global data in your program (data accessible to any function) and sh
 <span style="color:blue">cld_get_config()-&gt;ctx.req-&gt;data</span><br/>
 </div>
 This is a global void* pointer you can use any way you like for sharing global data unrelated to the current request data.<br/>
-<a id='116'>
+<a id='117'>
 <h2>Encoding and Decoding, URL encoding, Web encoding, Base64 encoding</h2>
 </a>
 <br/>
@@ -2968,10 +2978,10 @@ int original_data_len = 0;<br/>
 <span style="color:blue">cld_b64_decode</span> (result, result_len, &amp;original_data, &amp;original_data_len);<br/>
 </div>
 In this example, original_data will match data, and original_data_len will match file_size.</li></ul><br/>
-<a id='117'>
+<a id='118'>
 <h2>Numbers</h2>
 </a>
-<a id='118'>
+<a id='119'>
 <h3>Create string from integer</h3>
 </a>
 <br/>
@@ -2992,7 +3002,7 @@ To store the value in a string:<br/>
 <span style="color:blue">print-web</span> val<br/>
 </div>
 The result is the same. &nbsp;<br/>
-<a id='119'>
+<a id='120'>
 <h3>Check if string is a positive integer or a number</h3>
 </a>
 <br/>
@@ -3018,7 +3028,7 @@ If string is not a number, <span style="color:blue">cld_is_number</span> returns
 <br/>
 In the above example, prec is 5, scale is 3 and positive is 0. </li></ul><br/>
 <a id="program_execution_functions"></a>
-<a id='120'>
+<a id='121'>
 <h2>Execution of external programs, piping from one program to another</h2>
 </a>
 <br/>
@@ -3121,11 +3131,11 @@ int st = <span style="color:blue">cld_exec_program_with_in_out</span> ("/usr/bin
 fclose (fout4); <br/>
 </div>
 </li></ul> <br/>
-<a id='121'>
+<a id='122'>
 <h2>Output data and HTTP header</h2>
 </a>
 <a id='header'></a>
-<a id='122'>
+<a id='123'>
 <h3>Outputting HTTP header, custom HTTP response headers</h3>
 </a>
 <br/>
@@ -3158,7 +3168,7 @@ req-&gt;header = &amp;header;<br/>
 <span style="color:blue">cld_output_http_header</span>(req);<br/>
 </div>
 In the above example, custom header is constructed and output.<br/>
-<a id='123'>
+<a id='124'>
 <h3>Encoding data for output</h3>
 </a>
 <br/>
@@ -3188,7 +3198,7 @@ This outputs a single string, in different encodings.<br/>
 Each of the above functions returns number of bytes written. Writing is typically buffered for maximum performance.<br/>
 <br/>
 "Outputting data" means outputting to the web client, or the string. If the above functions are used within <span style="color:blue">write-string</span> and <span style="color:blue">end-write-string</span> (or API equivalents), the output goes to the string, otherwise it goes to the web client, except if the program is in batch mode. In batch mode, there is no output produced by these functions - you have to output data yourself (to a file, stdout, stderr etc.) or by using <span style="color:blue">print-out</span> and <span style="color:blue">print-error</span> markups. In batch mode, you can still write to a string and then output the string however you see fit. &nbsp;<br/>
-<a id='124'>
+<a id='125'>
 <h3>Output text without breaks</h3>
 </a>
 <br/>
@@ -3201,7 +3211,7 @@ This outputs:<br/>
 <br/>
 this is&lt;br/&gt;<br/>
 some text&lt;br/&gt;<br/>
-<a id='125'>
+<a id='126'>
 <h3>Disable and Enable HTML output, status of enablement</h3>
 </a>
 <br/>
@@ -3220,7 +3230,7 @@ You would disable HTML output when you want to output a file from your program, 
 When HTML output is disabled, anything written so far into the web output buffer (that hasn't been output yet) is cleared. Also, anything output from that point onward is never written to the output buffer.<br/>
 <br/>
 If you need to know if html output is enabled or disabled, use <span style="color:blue">cld_is_disabled_output</span>() function. It returns 1 if HTML output is disabled, otherwise 0.<br/>
-<a id='126'>
+<a id='127'>
 <h3>Send files to the client and output HTTP headers for files</h3>
 </a>
 <br/>
@@ -3294,7 +3304,7 @@ header.<span style="color:blue">ctype</span> = "image/jpg";<br/>
 Both <span style="color:blue">cld_init_header</span> and <span style="color:blue">cld_out_file</span> do not return a value. <br/>
 <br/>
 Note that <span style="color:blue">cld_out_file</span> will error out if your file name has dot-dot (..) in it - such files will not be served to avoid dot-dot (or path-traversal) attacks. Your file name should never have dot-dot (i.e. "..") in it.<br/>
-<a id='127'>
+<a id='128'>
 <h3>File not found (404)</h3>
 </a>
 <br/>
@@ -3303,7 +3313,7 @@ To output File Not Found message (i.e. 404 code back to the web client), use:<br
 <span style="color:blue">cld_cant_find_file</span> ("Explain reason for Not Found");<br/>
 </div>
 To use this function, HTTP header must not have been output.<br/>
-<a id='128'>
+<a id='129'>
 <h3>Flush output</h3>
 </a>
 <br/>
@@ -3313,7 +3323,7 @@ int num_bytes_written = <span style="color:blue">cld_flush_printf</span>(0);<br/
 </div>
 The input parameter to this function is always 0. Returns -1 if no output could be flushed (meaning HTML output is disabled and no writing to string is happening now), or number of bytes written (0 or more).<br/>
 Typically you don't need to call this function, and it may slow down the output if you do, even if your output is large, since flushing is done automatically when needed. In rare occassions you might use it, such as if your output consists of a number of parts and each part takes some time to compute.<br/>
-<a id='129'>
+<a id='130'>
 <h2>Create new database document and a new associated file</h2>
 </a>
 <br/>
@@ -3338,10 +3348,10 @@ fprintf (f, "Hello!");<br/>
 fclose(f);<br/>
 <span style="color:blue">end-c</span><br/>
 </div>
-<a id='130'>
+<a id='131'>
 <h2>Strings</h2>
 </a>
-<a id='131'>
+<a id='132'>
 <h3>Initialize, Copy, Append strings</h3>
 </a>
 <br/>
@@ -3402,7 +3412,7 @@ char *to_str = <span style="color:blue">cld_init_string</span> ("some init value
 <span style="color:blue">cld_strncpy</span>(to_str, "hello", 3);<br/>
 </div>
 This will copy maximum of 3 bytes, including zero byte, so variable to_str will have a value of "he", because the third byte will be zero terminator. This function does not return a value. </li></ul><br/>
-<a id='132'>
+<a id='133'>
 <h3>Output data to string</h3>
 </a>
 <br/>
@@ -3457,7 +3467,7 @@ It is a good day today!&lt;br/&gt;<br/>
 <span style="color:blue">print-noenc</span> my_str<br/>
 </div>
 In this above example, the output (Hello!... up to and including &lt;hr/&gt;) is written into my_str string, which is then output.<br/>
-<a id='133'>
+<a id='134'>
 <h3>Change case of strings (upper, lower)</h3>
 </a>
 <br/>
@@ -3473,7 +3483,7 @@ Variable my_str is now "some string".<br/>
 Variable my_str is now "SOME STRING".<br/>
 <br/>
 Both <span style="color:blue">cld_lower</span> and <span style="color:blue">cld_upper</span> return the input string, in this case they would both return my_str.<br/>
-<a id='134'>
+<a id='135'>
 <h3>Substrings</h3>
 </a>
 <br/>
@@ -3518,7 +3528,7 @@ one two one three<br/>
 <br/>
 Parameter 'src' must be allocated by <span style="color:blue">define-string</span> or <span style="color:blue">cld_malloc</span> (or such). Second parameter is replaced with the third in 'src'. Fourth parameter is 1, meaning to substitute all occurances - if it were 0 then only the first one would be substituted. Variable 'src' will be allocated more memory if needed for search and replace to complete.<br/>
 </li></ul><br/>
-<a id='135'>
+<a id='136'>
 <h3>Trim string</h3>
 </a>
 <br/>
@@ -3530,7 +3540,7 @@ int len = strlen (str);<br/>
 <span style="color:blue">cld_trim</span> (str, &amp;len);<br/>
 </div>
 Variable str will be "ABC" and len will be 3 (i.e. the new length). This function doesn't return a value. &nbsp;<br/>
-<a id='136'>
+<a id='137'>
 <h3>Break down string into an array of strings based on a delimiter</h3>
 </a>
 <br/>
@@ -3562,7 +3572,7 @@ The string to_break is broken by inserting zero characters, for better performan
 In the above example, we first break down the original string into pieces separated by "+", and then break those down separated by "=" (in general the separator is any string). Since the original string is broken down, you can also traverse the pieces by reading them zero-terminated one by one from the original string to_break.<br/>
 <br/>
 This is an efficient way of breaking down a string without making any copies.<br/>
-<a id='137'>
+<a id='138'>
 <h2>Clear Unused variable error</h2>
 </a>
 <br/>
@@ -3570,7 +3580,7 @@ It is a good practice to delete unused variables, but sometimes they cannot be. 
 <div class="codestyle">
 <span style="color:blue">CLD_UNUSED</span>(x);<br/>
 </div>
-<a id='138'>
+<a id='139'>
 <h2>Error reporting</h2>
 </a>
 <br/>
@@ -3584,11 +3594,11 @@ To report errors and do not exit, use:<br/>
 </div>
 In either case, any currently open database transactions are rolled back.<br/>
 <a id="encrypt_api"></a>
-<a id='139'>
+<a id='140'>
 <h2>Encryption and hashing</h2>
 </a>
 Cloudgizer uses 256 bit SHA hashing and AES encryption. The cipher used is AES-256-CBC.<br/>
-<a id='140'>
+<a id='141'>
 <h3>Hashing</h3>
 </a>
 <br/>
@@ -3597,7 +3607,7 @@ To create a 256-bit SHA hash, use <span style="color:blue">cld_sha</span>:<br/>
 char *hash = <span style="color:blue">cld_sha</span>("some value to hash");<br/>
 </div>
 Variable hash now contains hashed value of "some value to hash". This is a string terminated by null character, always 64 bytes in length. Hashed value might look something like 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'.<br/>
-<a id='141'>
+<a id='142'>
 <h3>Encrypting data</h3>
 </a>
 <br/>
@@ -3618,7 +3628,7 @@ If it is character mode, then the encrypted output will be converted into a stri
 Variable 'len' holds the length (in bytes) of data to encrypt, and on return it holds the length (in bytes) of the encrypted data (excluding zero byte at the end if the fourth parameter is 0, i.e. if the result is a character string). <br/>
 <br/>
 The salt can be NULL in which case no salt is used.<br/>
-<a id='142'>
+<a id='143'>
 <h3>Decrypting data</h3>
 </a>
 <br/>
@@ -3634,7 +3644,7 @@ The output of the function ('decrypted_data') contains decrypted data, which is 
 In &nbsp;the above example, we first create a decryption context out of password and salt ("password" and "salt" in the above example) and decrypt string 'encrypted_data' of length 'len'. The fourth parameter is 0, meaning that 'encrypted_data' is a character string produced by <span style="color:blue">cld_aes_encrypt</span> with fourth parameter of 0. When decrypting, password, salt and the mode of encryption (binary or character) must match between <span style="color:blue">cld_aes_encrypt</span> and <span style="color:blue">cld_aes_decrypt</span>.<br/>
 <br/>
 Variable 'len' holds the length (in bytes) of encrypted data (excluding zero byte at the end in case of character mode of encryption), and on return it holds the length (in bytes) of the decrypted data (excluding zero byte at the end which is always placed at the end of decrypted data). <br/>
-<a id='143'>
+<a id='144'>
 <h3>Generating random string</h3>
 </a>
 <br/>
@@ -3644,7 +3654,7 @@ char rnd[20];<br/>
 <span style="color:blue">cld_make_random</span> (rnd, sizeof(rnd));<br/>
 </div>
 Variable 'rnd' now holds random string of length 19. The buffer 'rnd' must be at least a byte longer than the length of random string you desire, to accomodate null terminator.<br/>
-<a id='144'>
+<a id='145'>
 <h2>Storing and retrieving data in a sequential list (FIFO)</h2>
 </a>
 <br/>
@@ -3681,10 +3691,10 @@ while (1)<br/>
 <span style="color:blue">cld_purge</span> (&amp;list_data);<br/>
 </div>
 <a id="execute"></a>
-<a id='145'>
+<a id='146'>
 <h2>Executing Cloudgizer program from command line (Batch processing)</h2>
 </a>
-<a id='146'>
+<a id='147'>
 <h3>Using batch processing</h3>
 </a>
 <br/>
@@ -3796,7 +3806,7 @@ List of employees
 Linda,2001<br/>
 John,2003<br/>
 <hr/>
-<a id='147'>
+<a id='148'>
 <h3>Exit code for batch processing</h3>
 </a>
 <br/>
@@ -3805,7 +3815,7 @@ To set exit code for a command-line program, use:<br/>
 <span style="color:blue">cld_set_exit_code</span>(3);<br/>
 </div>
 This sets exit code to 3.<br/>
-<a id='148'>
+<a id='149'>
 <h2>POST URL (web call)</h2>
 </a>
 <br/>
@@ -3817,11 +3827,11 @@ char *cert;<br/>
 int result = <span style="color:blue">cld_post_url_with_response</span> ("https://somesite.com?par=3", &amp;response, &amp;error, &amp;cert);<br/>
 </div>
 The function returns 1 on success and 0 on failure. Variable error has error text in case of failure. If HTTPS is used the location of certificate file can be provided in variable cert. If cert is NULL, certificate is not checked. The actual response (minus headers) is stored in variable response. Response that redirects to another URL will be followed up to 4 times. The response is the body message, not the headers.<br/>
-<a id='149'>
+<a id='150'>
 <h2>Files</h2>
 </a>
 <a id="file_create"></a>
-<a id='150'>
+<a id='151'>
 <h3>File storage</h3>
 </a>
 <br/>
@@ -3838,7 +3848,7 @@ c FILE *f = <span style="color:blue">cld_make_document</span> (&amp;document_id,
 Output variables are document_id (containing the unique ID of the file created, produced by using <span style="color:blue">cldDocumentGenerator</span> table), document_file (containing unique file name with a complete path to it), and file descriptor 'f' as the file created is opened and ready to write to.<br/>
 <br/>
 You'd typically store file ID and its path in the database, and use them to later manipulate the file (read, write, delete etc.).<br/>
-<a id='151'>
+<a id='152'>
 <h3>Get file size</h3>
 </a>
 <br/>
@@ -3847,14 +3857,14 @@ To get the size of a file:<br/>
 size_t sz = <span style="color:blue">cld_get_file_size</span> ("/home/user/my_file");<br/>
 </div>
 The return value will be -1 if cannot open file or its size.<br/>
-<a id='152'>
+<a id='153'>
 <h3>Copy files</h3>
 </a>
 <div class="codestyle">
 int result = <span style="color:blue">cld_copy_file</span> ("/home/user/from_file", "/home/user/to_file");<br/>
 </div>
 This copies from file from_file to file to_file. The result is -1 if cannot open from_file, -2 if cannot open to_file, -3 if cannot read from_file, -4 if cannot write to_file, and 1 on success.<br/>
-<a id='153'>
+<a id='154'>
 <h3>Read entire file into a string variable</h3>
 </a>
 <div class="codestyle">
@@ -3862,7 +3872,7 @@ char *file_data;<br/>
 int result = <span style="color:blue">cld_read_whole_file</span> ("/home/path/my_file", &amp;file_data);<br/>
 </div>
 This reads file my_file into string variable file_data, which is <span style="color:blue">cld_malloc</span>() allocated (like all Cloudgizer memory is). Variable 'result' is -1 if cannot open my_file, -2 if cannot read my_file, and the size of the file read (0, or a positive number) if reading succeeded. &nbsp;<br/>
-<a id='154'>
+<a id='155'>
 <h3>Write whole file from a string</h3>
 </a>
 <div class="codestyle">
@@ -3872,7 +3882,7 @@ size_t content_len = strlen(content);<br/>
 int result = <span style="color:blue">cld_write_file</span> ("/home/path/my_file", content, content_len, <span style="color:blue">0</span>);<br/>
 </div>
 This writes "some content" to my_file. Variable 'result' is -1 if cannot open my_file, -2 if cannot write it, and 1 if writing succeeded. The whole file is overwritten with the new content.<br/>
-<a id='155'>
+<a id='156'>
 <h3>Append to file from a string</h3>
 </a>
 <div class="codestyle">
@@ -3882,7 +3892,7 @@ size_t content_len = strlen(content);<br/>
 int result = <span style="color:blue">cld_write_file</span> ("/home/path/my_file", content, content_len, <span style="color:blue">1</span>);<br/>
 </div>
 This appends "new content" to the end of my_file. Variable 'result' is -1 if cannot open my_file, -2 if cannot write it, and 1 if writing succeeded.<br/>
-<a id='156'>
+<a id='157'>
 <h3>Lock a file</h3>
 </a>
 <br/>
@@ -3900,7 +3910,7 @@ The file stays locked until the program ends, or until it's closed, for instance
 <div class="codestyle">
 close (file_descriptor);<br/>
 </div>
-<a id='157'>
+<a id='158'>
 <h3>Get application home directory</h3>
 </a>
 <br/>
@@ -3911,7 +3921,7 @@ char *home_directory = <span style="color:blue">cld_home_dir</span> ();<br/>
 If cannot determine application home directory, empty string ("") is returned.<br/>
 <br/>
 Application's home directory is based on application name, which you can obtain via <span style="color:blue">cld_app_name()</span>.<br/>
-<a id='158'>
+<a id='159'>
 <h3>Check if directory</h3>
 </a>
 <br/>
@@ -3920,14 +3930,14 @@ To determine if something is a directory:<br/>
 int is_dir = <span style="color:blue">cld_is_directory</span> ("/home/user/something");<br/>
 </div>
 Variable is_dir will be 1 if something is a directory, 0 otherwise. &nbsp;<br/>
-<a id='159'>
+<a id='160'>
 <h3>Temporary files</h3>
 </a>
 To store temporary files, use temporary directory:<br/>
 <div class="codestyle">
 <span style="color:blue">print-web</span> <span style="color:blue">cld_get_config()-&gt;app-&gt;tmp_directory</span><br/>
 </div>
-<a id='160'>
+<a id='161'>
 <h2>Send email</h2>
 </a>
 <br/>
@@ -3946,10 +3956,10 @@ const char *to = "addr2@somethingelse.com"<br/>
 cons char *headers= "MIME-Version: 1.0\r\nContent-Type: text/html";<br/>
 int result = <span style="color:blue">cld_sendmail</span> (from, to, "subject of message", headers, "This is the body of email message");<br/>
 </div>
-<a id='161'>
+<a id='162'>
 <h2>Queries and Transactions</h2>
 </a>
-<a id='162'>
+<a id='163'>
 <h3>SELECT from the database</h3>
 </a>
 <div class="codestyle">
@@ -3972,7 +3982,7 @@ To get column names only, without the data:<br/>
 In this case, col_names[0] is the name of the first column, col_names[1] is the name of the second column and so forth.<br/>
 <br/>
 This function does not return value, and its failure will stop the program (i.e. it is expected to always succeed). &nbsp;<br/>
-<a id='163'>
+<a id='164'>
 <h3>Get value from auto-increment column</h3>
 </a>
 <br/>
@@ -3983,7 +3993,7 @@ char val[100];<br/>
 </div>
 'val' is the output buffer. This function must be called immediately after INSERT and it does not return a value.<br/>
  <a id="ddl"></a>
-<a id='164'>
+<a id='165'>
 <h3>Execute any SQL other than SELECT, including DDL statements</h3>
 </a>
 <div class="codestyle">
@@ -3999,7 +4009,7 @@ char *err_message;<br/>
 Varable 'rows' is the number of rows affected, 'er' is the error number, and 'err_message' is the error message. If failed, the function returns 0, otherwise 1.<br/>
 <br/>
 Use this to execute any SQL, including DDL (Data Definition Language) such as CREATE TABLE, DROP TABLE etc. <br/>
-<a id='165'>
+<a id='166'>
 <h3>Check for open transaction</h3>
 </a>
 <div class="codestyle">
@@ -4010,10 +4020,10 @@ end-if<br/>
 If input parameter is 1, the function returns 1 if there is an open transaction and 0 if not. If input parameter is 0 then it will report an error if there is an open transaction and it will return 0 if not.<br/>
 <br/>
 If input parameter is 2, and there is an open transaction, rollback this transaction and return 0.<br/>
-<a id='166'>
+<a id='167'>
 <h2>Get miscellaneous</h2>
 </a>
-<a id='167'>
+<a id='168'>
 <h3>Get web address for forms and links</h3>
 </a>
 <br/>
@@ -4021,7 +4031,7 @@ Web address (for forms and links) is obtained from <span style="color:blue">conf
 <div class="codestyle">
 const char *web_address = <span style="color:blue">cld_web_address</span> ();<br/>
 </div>
-<a id='168'>
+<a id='169'>
 <h3>Get Base URL of server</h3>
 </a>
 <br/>
@@ -4030,7 +4040,7 @@ Base URL for "https://myserver.com/go.your_app_name?par1=val1" is "myserver.com"
 char *base_URL = <span style="color:blue">cld_web_name</span>(<span style="color:blue">cld_web_address</span>()); <br/>
 </div>
 This will produce the base name of a web server running the program.<br/>
-<a id='169'>
+<a id='170'>
 <h3>Get version</h3>
 </a>
 <br/>
@@ -4038,7 +4048,7 @@ The software version can be obtained via following call:<br/>
 <div class="codestyle">
 const char *major_version = <span style="color:blue">cld_major_version</span>();<br/>
 </div>
-<a id='170'>
+<a id='171'>
 <h3>Get current, past or future time, including GMT</h3>
 </a>
 To get current, past or future time, suitable for cookies, use <span style="color:blue">cld_time</span>:<br/>
@@ -4048,7 +4058,7 @@ char *<span style="color:blue">cld_time</span> (const char *timezone, int year, 
 Returns time (now, in the future, or the past). Input parameter 'timezone' is the name of TZ (timezone). So to get GMT time then timezone should be "GMT", if it is Mountain Standard then it is "MST" etc.<br/>
 <br/>
 Input parameters year,month,day,hour,min,sec are the time to add to current time (they can be negative too). So for example ..(0,0,1,0,0,1) adds 1 day and 1 second to the current time, while ..(0,-1,0,0,0) is one month in the past.<br/>
-<a id='171'>
+<a id='172'>
 <h3>Get current time</h3>
 </a>
 <br/>
@@ -4058,7 +4068,7 @@ char buf[50];<br/>
 <span style="color:blue">cld_current_time</span> (buf, sizeof(buf));<br/>
 </div>
 The time returned shows year, month, day of month, hour, minute, second, separated by a dash, such as '2017-07-30-18:48:13', with hours in 0-24 range.<br/>
-<a id='172'>
+<a id='173'>
 <h3>Get application name</h3>
 </a>
 <br/>
@@ -4069,7 +4079,7 @@ Application name can be obtained via &nbsp;<span style="color:blue">cld_app_name
 &gt;*/<br/>
 </div>
 Application's home directory is based on it. Always use <span style="color:blue">cld_home_dir()</span> to get the application home directory.<br/>
-<a id='173'>
+<a id='174'>
 <h3>Get environment variable (web or command shell)</h3>
 </a>
 <br/>
