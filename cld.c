@@ -178,6 +178,12 @@ typedef struct qry_shards_s
     int soft_compare;
 } qry_shards_t;
 
+typedef struct qry_shards_s1
+{
+    char *name;
+    char *text;
+    int soft_compare;
+} qry_shards_t1;
 
 
 // 
