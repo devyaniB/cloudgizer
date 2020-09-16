@@ -145,6 +145,11 @@ void posix_print_stack_trace()
     cld_report_error ("Something went wrong, see backtrace file");
 }
 
+void posix_print_stack_trace()
+{
+    cld_get_stack(backtrace_file);
+    cld_report_error ("Something went wrong, see backtrace file");
+}
 // 
 // Obtain backtrace, and write information to output file fname.
 // Obtain each stack item and process it to obtain file name and line number.
